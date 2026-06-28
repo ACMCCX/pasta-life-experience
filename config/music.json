@@ -7,8 +7,8 @@
     "appleMusicUrl": "",
     "spotifyEmbedUrl": ""
   },
-  "spotifyPlaylistUrl": "",
-  "spotifyPlaylistEmbedUrl": "",
+  "spotifyPlaylistUrl": "https://open.spotify.com/playlist/7HERNWu0HBFqDoiux7JLj6",
+  "spotifyPlaylistEmbedUrl": "https://open.spotify.com/embed/playlist/7HERNWu0HBFqDoiux7JLj6?utm_source=generator&si=dff6826347a341db",
   "spotifyArtistUrl": "",
   "appleMusicArtistUrl": ""
 }
