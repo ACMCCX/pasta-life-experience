@@ -1,0 +1,161 @@
+import musicConfig from "@/config/music.json";
+
+function SectionHeader({ children }: { children: React.ReactNode }) {
+  return (
+    <h2
+      className="font-[family-name:var(--font-oswald)] font-bold uppercase tracking-wider text-[#f5f5f5] mb-2"
+      style={{ fontSize: "clamp(1.8rem, 6vw, 2.5rem)" }}
+    >
+      {children}
+    </h2>
+  );
+}
+
+function AlbumDropCard() {
+  const { featuredAlbum } = musicConfig;
+  const releaseDate = new Date(featuredAlbum.releaseDate);
+  const formattedDate = releaseDate.toLocaleDateString("en-US", {
+    month: "long",
+    day: "numeric",
+    year: "numeric",
+  });
+
+  return (
+    <div
+      className="relative overflow-hidden rounded-2xl border border-[#e63030]/40 bg-[#1a1a1a]"
+      style={{ boxShadow: "0 0 40px rgba(230, 48, 48, 0.15)" }}
+    >
+      {/* Album art placeholder */}
+      <div
+        className="w-full aspect-square max-w-[280px] mx-auto mt-8 rounded-xl flex flex-col items-center justify-center border border-[#2a2a2a]"
+        style={{
+          background: "linear-gradient(135deg, #1a1a1a 0%, #2a1010 50%, #1a1a1a 100%)",
+        }}
+      >
+        <span className="text-5xl mb-3">🍝</span>
+        <span
+          className="font-[family-name:var(--font-oswald)] font-bold uppercase text-[#ffd700] text-center px-4 text-xl"
+        >
+          {featuredAlbum.title}
+        </span>
+        <span className="text-[#f5f5f5]/50 text-sm mt-1 font-[family-name:var(--font-inter)]">
+          {featuredAlbum.artist}
+        </span>
+      </div>
+
+      <div className="p-6 text-center">
+        {/* Drop badge */}
+        <div
+          className="inline-flex items-center gap-2 px-4 py-2 rounded-full mb-4 font-[family-name:var(--font-oswald)] font-bold uppercase tracking-widest text-sm"
+          style={{ background: "linear-gradient(135deg, #e63030, #ff6b1a)" }}
+        >
+          🔥 DROPS {formattedDate.toUpperCase()}
+        </div>
+
+        <p className="text-[#f5f5f5]/60 text-sm font-[family-name:var(--font-inter)] mb-6 leading-relaxed">
+          The debut album. On all platforms. Coming for your ears.
+        </p>
+
+        {/* Platform buttons — coming soon */}
+        <div className="flex flex-col gap-3">
+          <div
+            className="flex items-center justify-center gap-3 py-3 px-6 rounded-full border border-[#1DB954]/40 text-[#1DB954]/70 font-[family-name:var(--font-oswald)] font-semibold uppercase tracking-wider text-sm cursor-default"
+            style={{ background: "rgba(29,185,84,0.05)" }}
+          >
+            <span>🎵</span> Spotify — Dropping June 30
+          </div>
+          <div
+            className="flex items-center justify-center gap-3 py-3 px-6 rounded-full border border-[#fc3c44]/40 text-[#fc3c44]/70 font-[family-name:var(--font-oswald)] font-semibold uppercase tracking-wider text-sm cursor-default"
+            style={{ background: "rgba(252,60,68,0.05)" }}
+          >
+            <span>🎵</span> Apple Music — Dropping June 30
+          </div>
+        </div>
+      </div>
+
+      {/* Glow accent */}
+      <div
+        className="absolute -bottom-8 left-1/2 -translate-x-1/2 w-40 h-16 rounded-full opacity-30 pointer-events-none"
+        style={{ background: "#e63030", filter: "blur(24px)" }}
+      />
+    </div>
+  );
+}
+
+function SpotifyPlaceholder() {
+  return (
+    <div
+      className="rounded-2xl border border-[#1DB954]/30 bg-[#1a1a1a] p-8 flex flex-col items-center justify-center gap-4 min-h-[200px]"
+      style={{ background: "rgba(29,185,84,0.03)" }}
+    >
+      <div className="w-14 h-14 rounded-full bg-[#1DB954]/20 flex items-center justify-center">
+        <span className="text-2xl">🎵</span>
+      </div>
+      <div className="text-center">
+        <p
+          className="font-[family-name:var(--font-oswald)] font-bold uppercase tracking-wider text-[#1DB954]/80 text-lg"
+        >
+          Playlist Dropping Monday
+        </p>
+        <p className="text-[#f5f5f5]/50 text-sm font-[family-name:var(--font-inter)] mt-1">
+          Check back June 30 — full Spotify embed coming live
+        </p>
+      </div>
+    </div>
+  );
+}
+
+export default function MusicHub() {
+  const { spotifyPlaylistEmbedUrl, featuredAlbum } = musicConfig;
+  const hasPlaylist = Boolean(spotifyPlaylistEmbedUrl);
+  const hasAlbumEmbed = Boolean(featuredAlbum.spotifyEmbedUrl);
+
+  return (
+    <section id="music" className="gp-section" style={{ backgroundColor: "#0d0d0d" }}>
+      <div className="max-w-2xl mx-auto">
+        {/* Header */}
+        <div className="mb-8">
+          <SectionHeader>🎵 Music</SectionHeader>
+          <p className="text-[#f5f5f5]/50 font-[family-name:var(--font-inter)] text-sm">
+            Fresh out of Denton. Pasta on the track.
+          </p>
+        </div>
+
+        {/* Album drop card */}
+        <AlbumDropCard />
+
+        {/* Spotify playlist embed or placeholder */}
+        <div className="mt-6">
+          {hasPlaylist ? (
+            <iframe
+              src={spotifyPlaylistEmbedUrl}
+              width="100%"
+              height="352"
+              style={{ borderRadius: "12px" }}
+              allowFullScreen
+              allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+              loading="lazy"
+            />
+          ) : (
+            hasAlbumEmbed ? (
+              <iframe
+                src={featuredAlbum.spotifyEmbedUrl}
+                width="100%"
+                height="352"
+                style={{ borderRadius: "12px" }}
+                allowFullScreen
+                allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+                loading="lazy"
+              />
+            ) : (
+              <SpotifyPlaceholder />
+            )
+          )}
+        </div>
+      </div>
+
+      {/* Section divider */}
+      <div className="mt-16 h-px max-w-2xl mx-auto" style={{ background: "linear-gradient(90deg, transparent, #2a2a2a, transparent)" }} />
+    </section>
+  );
+}

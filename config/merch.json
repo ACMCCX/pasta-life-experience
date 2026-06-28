@@ -1,0 +1,32 @@
+{
+  "shopUrl": "https://graffiti-pasta.myshopify.com",
+  "products": [
+    {
+      "id": "1",
+      "title": "GP Logo Tee",
+      "price": "$32",
+      "description": "Classic Graffiti Pasta logo. Heavy cotton. Built to last.",
+      "image": "/merch/gp-tee.jpg",
+      "buyUrl": "https://graffiti-pasta.myshopify.com",
+      "available": false
+    },
+    {
+      "id": "2",
+      "title": "Pasta Life Hat",
+      "price": "$28",
+      "description": "Structured snapback. Street-ready.",
+      "image": "/merch/gp-hat.jpg",
+      "buyUrl": "https://graffiti-pasta.myshopify.com",
+      "available": false
+    },
+    {
+      "id": "3",
+      "title": "GP Sticker Pack",
+      "price": "$8",
+      "description": "5-pack. Stick 'em everywhere.",
+      "image": "/merch/gp-stickers.jpg",
+      "buyUrl": "https://graffiti-pasta.myshopify.com",
+      "available": false
+    }
+  ]
+}
