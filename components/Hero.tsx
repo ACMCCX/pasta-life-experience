@@ -34,7 +34,7 @@ export default function Hero() {
       <div className="relative z-10 text-center px-4 max-w-2xl mx-auto pt-24 pb-12">
         {/* Eyebrow */}
         <p className="text-[#ff6b1a] text-xs font-[family-name:var(--font-oswald)] font-semibold tracking-[0.3em] uppercase mb-4">
-          Denton, TX
+          Graffiti Pasta
         </p>
 
         {/* Main headline */}

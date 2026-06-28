@@ -108,7 +108,7 @@ function GalleryPlaceholder({ galleryInfo }: { galleryInfo: string }) {
           Gallery Loading
         </p>
         <p className="text-[#f5f5f5]/50 font-[family-name:var(--font-inter)] text-sm max-w-xs leading-relaxed">
-          Denton artists coming soon. Every piece sold supports a local creator.
+          Artists coming soon. Every piece sold supports the creator.
           100% goes to the artist.
         </p>
       </div>
@@ -137,7 +137,7 @@ export default function ArtGallery() {
             🎨 Art Gallery
           </h2>
           <p className="text-[#f5f5f5]/50 font-[family-name:var(--font-inter)] text-sm">
-            Local Denton artists. 100% to the creator.
+            Local artists. 100% to the creator.
           </p>
         </div>
 

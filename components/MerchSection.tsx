@@ -101,7 +101,7 @@ export default function MerchSection() {
               👕 Merch
             </h2>
             <p className="text-[#f5f5f5]/50 font-[family-name:var(--font-inter)] text-sm">
-              Wear the life. Represent Denton.
+              Wear the life.
             </p>
           </div>
           {shopUrl && (

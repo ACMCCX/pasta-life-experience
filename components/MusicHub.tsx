@@ -1,3 +1,4 @@
+import Image from "next/image";
 import musicConfig from "@/config/music.json";
 
 function SectionHeader({ children }: { children: React.ReactNode }) {
@@ -25,22 +26,15 @@ function AlbumDropCard() {
       className="relative overflow-hidden rounded-2xl border border-[#e63030]/40 bg-[#1a1a1a]"
       style={{ boxShadow: "0 0 40px rgba(230, 48, 48, 0.15)" }}
     >
-      {/* Album art placeholder */}
-      <div
-        className="w-full aspect-square max-w-[280px] mx-auto mt-8 rounded-xl flex flex-col items-center justify-center border border-[#2a2a2a]"
-        style={{
-          background: "linear-gradient(135deg, #1a1a1a 0%, #2a1010 50%, #1a1a1a 100%)",
-        }}
-      >
-        <span className="text-5xl mb-3">🍝</span>
-        <span
-          className="font-[family-name:var(--font-oswald)] font-bold uppercase text-[#ffd700] text-center px-4 text-xl"
-        >
-          {featuredAlbum.title}
-        </span>
-        <span className="text-[#f5f5f5]/50 text-sm mt-1 font-[family-name:var(--font-inter)]">
-          {featuredAlbum.artist}
-        </span>
+      {/* Album cover art */}
+      <div className="w-full max-w-[280px] mx-auto mt-8 rounded-xl overflow-hidden border border-[#2a2a2a] relative" style={{ aspectRatio: "1/1" }}>
+        <Image
+          src="/album-cover-graffiti-pastas.png"
+          alt={`${featuredAlbum.title} — ${featuredAlbum.artist}`}
+          fill
+          className="object-cover object-center"
+          priority
+        />
       </div>
 
       <div className="p-6 text-center">
@@ -117,7 +111,7 @@ export default function MusicHub() {
         <div className="mb-8">
           <SectionHeader>🎵 Music</SectionHeader>
           <p className="text-[#f5f5f5]/50 font-[family-name:var(--font-inter)] text-sm">
-            Fresh out of Denton. Pasta on the track.
+            Pasta on the track.
           </p>
         </div>
 

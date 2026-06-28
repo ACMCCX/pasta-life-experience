@@ -1,6 +1,6 @@
 const links = [
   { label: "graffitipasta.com", href: "https://graffitipasta.com", external: true },
-  { label: "Instagram", href: "https://instagram.com/graffitipasta", external: true },
+  { label: "Instagram", href: "https://www.instagram.com/graffiti_pasta", external: true },
   { label: "TikTok", href: "https://tiktok.com/@graffitipasta", external: true },
 ];
 
@@ -37,7 +37,7 @@ export default function Footer() {
             className="text-sm font-[family-name:var(--font-inter)]"
             style={{ color: "#ff6b1a" }}
           >
-            🍝 Denton, TX
+            🍝 Graffiti Pasta
           </p>
         </div>
 
@@ -77,7 +77,7 @@ export default function Footer() {
 
         {/* Address */}
         <p className="text-center text-[#f5f5f5]/30 text-xs font-[family-name:var(--font-inter)] mb-6">
-          Graffiti Pasta Restaurant · Denton, TX
+          Graffiti Pasta
         </p>
 
         {/* Powered by */}
