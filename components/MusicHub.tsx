@@ -127,9 +127,9 @@ export default function MusicHub() {
         {/* Album drop card */}
         <AlbumDropCard />
 
-        {/* Spotify playlist embed or placeholder */}
-        <div className="mt-6">
-          {hasAlbumEmbed ? (
+        {/* Album embed */}
+        {hasAlbumEmbed && (
+          <div className="mt-6">
             <iframe
               src={featuredAlbum.spotifyEmbedUrl}
               width="100%"
@@ -139,7 +139,20 @@ export default function MusicHub() {
               allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
               loading="lazy"
             />
-          ) : hasPlaylist ? (
+          </div>
+        )}
+
+        {/* Dining playlist */}
+        {hasPlaylist && (
+          <div className="mt-10">
+            <div className="mb-3">
+              <p className="font-[family-name:var(--font-oswald)] font-bold uppercase tracking-wider text-[#f5f5f5]/80 text-lg">
+                🍝 The Dining Playlist
+              </p>
+              <p className="text-[#f5f5f5]/40 text-sm font-[family-name:var(--font-inter)] mt-1">
+                What&apos;s playing in the restaurant every night. Take it home.
+              </p>
+            </div>
             <iframe
               src={spotifyPlaylistEmbedUrl}
               width="100%"
@@ -149,10 +162,8 @@ export default function MusicHub() {
               allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
               loading="lazy"
             />
-          ) : (
-            <SpotifyPlaceholder />
-          )}
-        </div>
+          </div>
+        )}
       </div>
 
       {/* Section divider */}
