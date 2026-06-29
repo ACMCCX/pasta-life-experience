@@ -44,9 +44,9 @@ export default function Hero() {
           <Image
             src="/pasta-life-logo.png"
             alt="Pasta Life Experience"
-            width={420}
-            height={160}
-            className="w-full max-w-[340px] sm:max-w-[420px]"
+            width={480}
+            height={184}
+            className="w-full max-w-[390px] sm:max-w-[480px]"
             priority
           />
         </div>
@@ -56,7 +56,7 @@ export default function Hero() {
           className="text-[#f5f5f5]/70 font-[family-name:var(--font-inter)] font-medium mb-10 leading-relaxed"
           style={{ fontSize: "clamp(0.9rem, 3vw, 1.1rem)" }}
         >
-          The full Graffiti Pasta universe — music, art, merch &amp; more
+          The full Graffiti Pasta universe music, art, merch &amp; more
         </p>
 
         {/* Navigation pills grid */}
