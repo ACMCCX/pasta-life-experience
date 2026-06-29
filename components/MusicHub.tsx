@@ -43,28 +43,37 @@ function AlbumDropCard() {
           className="inline-flex items-center gap-2 px-4 py-2 rounded-full mb-4 font-[family-name:var(--font-oswald)] font-bold uppercase tracking-widest text-sm"
           style={{ background: "linear-gradient(135deg, #e63030, #ff6b1a)" }}
         >
-          🔥 DROPS {formattedDate.toUpperCase()}
+          🔥 OUT NOW
         </div>
 
         <p className="text-[#f5f5f5]/60 text-sm font-[family-name:var(--font-inter)] mb-6 leading-relaxed">
-          The debut album. On all platforms. Coming for your ears.
+          The debut album. Streaming everywhere now.
         </p>
 
-        {/* Platform buttons — coming soon */}
+        {/* Platform buttons — live */}
         <div className="flex flex-col gap-3">
-          <div
-            className="flex items-center justify-center gap-3 py-3 px-6 rounded-full border border-[#1DB954]/40 text-[#1DB954]/70 font-[family-name:var(--font-oswald)] font-semibold uppercase tracking-wider text-sm cursor-default"
+          <a
+            href={featuredAlbum.spotifyAlbumUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center justify-center gap-3 py-3 px-6 rounded-full border border-[#1DB954]/60 text-[#1DB954] font-[family-name:var(--font-oswald)] font-semibold uppercase tracking-wider text-sm hover:bg-[#1DB954]/10 transition-colors"
             style={{ background: "rgba(29,185,84,0.05)" }}
           >
-            <span>🎵</span> Spotify — Dropping June 30
-          </div>
-          <div
-            className="flex items-center justify-center gap-3 py-3 px-6 rounded-full border border-[#fc3c44]/40 text-[#fc3c44]/70 font-[family-name:var(--font-oswald)] font-semibold uppercase tracking-wider text-sm cursor-default"
+            <span>🎵</span> Listen on Spotify
+          </a>
+          <a
+            href={featuredAlbum.appleMusicUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center justify-center gap-3 py-3 px-6 rounded-full border border-[#fc3c44]/60 text-[#fc3c44] font-[family-name:var(--font-oswald)] font-semibold uppercase tracking-wider text-sm hover:bg-[#fc3c44]/10 transition-colors"
             style={{ background: "rgba(252,60,68,0.05)" }}
           >
-            <span>🎵</span> Apple Music — Dropping June 30
-          </div>
+            <span>🎵</span> Listen on Apple Music
+          </a>
         </div>
+        <p className="text-[#f5f5f5]/40 text-xs font-[family-name:var(--font-inter)] mt-4">
+          Tracks also available on TikTok &amp; Instagram — use them in your posts 🎬
+        </p>
       </div>
 
       {/* Glow accent */}
@@ -120,7 +129,17 @@ export default function MusicHub() {
 
         {/* Spotify playlist embed or placeholder */}
         <div className="mt-6">
-          {hasPlaylist ? (
+          {hasAlbumEmbed ? (
+            <iframe
+              src={featuredAlbum.spotifyEmbedUrl}
+              width="100%"
+              height="352"
+              style={{ borderRadius: "12px" }}
+              allowFullScreen
+              allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+              loading="lazy"
+            />
+          ) : hasPlaylist ? (
             <iframe
               src={spotifyPlaylistEmbedUrl}
               width="100%"
@@ -131,19 +150,7 @@ export default function MusicHub() {
               loading="lazy"
             />
           ) : (
-            hasAlbumEmbed ? (
-              <iframe
-                src={featuredAlbum.spotifyEmbedUrl}
-                width="100%"
-                height="352"
-                style={{ borderRadius: "12px" }}
-                allowFullScreen
-                allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
-                loading="lazy"
-              />
-            ) : (
-              <SpotifyPlaceholder />
-            )
+            <SpotifyPlaceholder />
           )}
         </div>
       </div>
