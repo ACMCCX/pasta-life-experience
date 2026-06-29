@@ -1,3 +1,5 @@
+import Image from "next/image";
+
 const navLinks = [
   { label: "🎵 Listen", href: "#music" },
   { label: "🎬 Watch", href: "#videos" },
@@ -37,24 +39,17 @@ export default function Hero() {
           Graffiti Pasta
         </p>
 
-        {/* Main headline */}
-        <h1
-          className="font-[family-name:var(--font-oswald)] font-bold uppercase leading-none tracking-tight mb-4"
-          style={{ fontSize: "clamp(2.5rem, 10vw, 5rem)" }}
-        >
-          <span
-            style={{
-              background: "linear-gradient(135deg, #e63030 0%, #ff6b1a 50%, #ffd700 100%)",
-              WebkitBackgroundClip: "text",
-              WebkitTextFillColor: "transparent",
-              backgroundClip: "text",
-            }}
-          >
-            PASTA LIFE
-          </span>
-          <br />
-          <span className="text-[#f5f5f5]">EXPERIENCE</span>
-        </h1>
+        {/* Logo */}
+        <div className="flex justify-center mb-4">
+          <Image
+            src="/pasta-life-logo.png"
+            alt="Pasta Life Experience"
+            width={420}
+            height={160}
+            className="w-full max-w-[340px] sm:max-w-[420px]"
+            priority
+          />
+        </div>
 
         {/* Subheadline */}
         <p
