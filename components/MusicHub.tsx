@@ -43,7 +43,7 @@ function AlbumDropCard() {
           className="inline-flex items-center gap-2 px-4 py-2 rounded-full mb-4 font-[family-name:var(--font-oswald)] font-bold uppercase tracking-widest text-sm"
           style={{ background: "linear-gradient(135deg, #e63030, #ff6b1a)" }}
         >
-          🔥 OUT NOW
+          OUT NOW
         </div>
 
         <p className="text-[#f5f5f5]/60 text-sm font-[family-name:var(--font-inter)] mb-6 leading-relaxed">
@@ -59,7 +59,7 @@ function AlbumDropCard() {
             className="flex items-center justify-center gap-3 py-3 px-6 rounded-full border border-[#1DB954]/60 text-[#1DB954] font-[family-name:var(--font-oswald)] font-semibold uppercase tracking-wider text-sm hover:bg-[#1DB954]/10 transition-colors"
             style={{ background: "rgba(29,185,84,0.05)" }}
           >
-            <span>🎵</span> Listen on Spotify
+            Listen on Spotify
           </a>
           <a
             href={featuredAlbum.appleMusicUrl}
@@ -68,11 +68,11 @@ function AlbumDropCard() {
             className="flex items-center justify-center gap-3 py-3 px-6 rounded-full border border-[#fc3c44]/60 text-[#fc3c44] font-[family-name:var(--font-oswald)] font-semibold uppercase tracking-wider text-sm hover:bg-[#fc3c44]/10 transition-colors"
             style={{ background: "rgba(252,60,68,0.05)" }}
           >
-            <span>🎵</span> Listen on Apple Music
+            Listen on Apple Music
           </a>
         </div>
         <p className="text-[#f5f5f5]/40 text-xs font-[family-name:var(--font-inter)] mt-4">
-          Tracks also available on TikTok &amp; Instagram — use them in your posts 🎬
+          Tracks also available on TikTok &amp; Instagram — use them in your posts
         </p>
       </div>
 
@@ -118,7 +118,7 @@ export default function MusicHub() {
       <div className="max-w-2xl mx-auto">
         {/* Header */}
         <div className="mb-8">
-          <SectionHeader>🎵 Music</SectionHeader>
+          <SectionHeader>Music</SectionHeader>
           <p className="text-[#f5f5f5]/50 font-[family-name:var(--font-inter)] text-sm">
             Pasta on the track.
           </p>
@@ -147,7 +147,7 @@ export default function MusicHub() {
           <div className="mt-10">
             <div className="mb-3">
               <p className="font-[family-name:var(--font-oswald)] font-bold uppercase tracking-wider text-[#f5f5f5]/80 text-lg">
-                🍝 The Dining Playlist
+                The Dining Playlist
               </p>
               <p className="text-[#f5f5f5]/40 text-sm font-[family-name:var(--font-inter)] mt-1">
                 What&apos;s playing in the restaurant every night. Take it home.
