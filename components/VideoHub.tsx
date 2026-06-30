@@ -103,8 +103,30 @@ function VideoCard({ video }: { video: Video }) {
   );
 }
 
+function ChannelPromoCTA({ channelUrl }: { channelUrl: string }) {
+  return (
+    <div
+      className="mt-8 rounded-2xl border border-[#ff6b1a]/30 p-8 text-center"
+      style={{ background: "rgba(255, 107, 26, 0.05)" }}
+    >
+      <p className="text-[#f5f5f5]/70 font-[family-name:var(--font-inter)] text-sm mb-4">
+        More content dropping regularly. Subscribe so you don’t miss it.
+      </p>
+      <a
+        href={channelUrl}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="inline-flex items-center gap-2 px-6 py-3 rounded-full font-[family-name:var(--font-oswald)] font-semibold uppercase tracking-wider text-sm text-white transition-all hover:opacity-90"
+        style={{ background: "linear-gradient(135deg, #e63030, #ff6b1a)" }}
+      >
+        Visit YouTube Channel
+      </a>
+    </div>
+  );
+}
+
 export default function VideoHub() {
-  const { videos } = videoConfig as { youtubeChannelUrl: string; videos: Video[] };
+  const { youtubeChannelUrl, videos } = videoConfig as { youtubeChannelUrl: string; videos: Video[] };
   const hasVideos = videos.length > 0;
 
   return (
@@ -124,39 +146,42 @@ export default function VideoHub() {
         </div>
 
         {hasVideos ? (
-          <div className="flex flex-col gap-6">
-            {/* Music Videos */}
-            {videos.filter((v) => v.category === "music").length > 0 && (
-              <div>
-                <h3 className="font-[family-name:var(--font-oswald)] uppercase tracking-wider text-[#e63030] mb-3 text-sm font-bold">
-                  Music Videos
-                </h3>
-                <div className="flex flex-col gap-4">
-                  {videos
-                    .filter((v) => v.category === "music")
-                    .map((v) => (
-                      <VideoCard key={v.id} video={v} />
-                    ))}
+          <>
+            <div className="flex flex-col gap-6">
+              {/* Music Videos */}
+              {videos.filter((v) => v.category === "music").length > 0 && (
+                <div>
+                  <h3 className="font-[family-name:var(--font-oswald)] uppercase tracking-wider text-[#e63030] mb-3 text-sm font-bold">
+                    Music Videos
+                  </h3>
+                  <div className="flex flex-col gap-4">
+                    {videos
+                      .filter((v) => v.category === "music")
+                      .map((v) => (
+                        <VideoCard key={v.id} video={v} />
+                      ))}
+                  </div>
                 </div>
-              </div>
-            )}
+              )}
 
-            {/* Cooking Classes */}
-            {videos.filter((v) => v.category === "cooking").length > 0 && (
-              <div>
-                <h3 className="font-[family-name:var(--font-oswald)] uppercase tracking-wider text-[#ffd700] mb-3 text-sm font-bold">
-                  Pasta Cooking Classes
-                </h3>
-                <div className="flex flex-col gap-4">
-                  {videos
-                    .filter((v) => v.category === "cooking")
-                    .map((v) => (
-                      <VideoCard key={v.id} video={v} />
-                    ))}
+              {/* Cooking Classes */}
+              {videos.filter((v) => v.category === "cooking").length > 0 && (
+                <div>
+                  <h3 className="font-[family-name:var(--font-oswald)] uppercase tracking-wider text-[#ffd700] mb-3 text-sm font-bold">
+                    Pasta Cooking Classes
+                  </h3>
+                  <div className="flex flex-col gap-4">
+                    {videos
+                      .filter((v) => v.category === "cooking")
+                      .map((v) => (
+                        <VideoCard key={v.id} video={v} />
+                      ))}
+                  </div>
                 </div>
-              </div>
-            )}
-          </div>
+              )}
+            </div>
+            {youtubeChannelUrl && <ChannelPromoCTA channelUrl={youtubeChannelUrl} />}
+          </>
         ) : (
           <ComingSoonPlaceholder />
         )}

@@ -1,4 +1,12 @@
 {
-  "youtubeChannelUrl": "",
-  "videos": []
+  "youtubeChannelUrl": "https://youtube.com/@pastalifeexperience?si=VSq5r2IaNd_luYFW",
+  "videos": [
+    {
+      "id": "pasta-life-intro",
+      "title": "Pasta Life Experience",
+      "youtubeId": "eL8uzVi-YI4",
+      "category": "music",
+      "description": "Welcome to the Pasta Life Experience. Stream the album everywhere."
+    }
+  ]
 }
