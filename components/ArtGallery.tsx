@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import artConfig from "@/config/art.json";
+import artConfig from "@/config/art.json"; // Note: Image import removed; using native img for simplicity
 
 interface Artwork {
   id: string;
@@ -65,19 +65,19 @@ function ArtworkCard({ artwork }: { artwork: Artwork }) {
       style={{ boxShadow: "0 4px 20px rgba(0,0,0,0.4)" }}
     >
       {/* Art image */}
-      <div
-        className="w-full aspect-square flex flex-col items-center justify-center"
-        style={{
-          backgroundImage: `url(${artwork.image})`,
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-          background: artwork.image
-            ? `linear-gradient(rgba(0,0,0,0.1), rgba(0,0,0,0.1)), url(${artwork.image})`
-            : "linear-gradient(135deg, #1a1a1a, #2a1010, #1a1a1a)",
-          backgroundRepeat: "no-repeat",
-        }}
-      >
-        {!artwork.image && (
+      <div className="w-full aspect-square overflow-hidden bg-[#1a1a1a] flex items-center justify-center">
+        {artwork.image ? (
+          <img
+            src={artwork.image}
+            alt={artwork.title}
+            style={{
+              width: "100%",
+              height: "100%",
+              objectFit: "cover",
+              objectPosition: "center",
+            }}
+          />
+        ) : (
           <>
             <span className="text-5xl mb-2">🎨</span>
             <span className="text-[#f5f5f5]/30 text-xs font-[family-name:var(--font-oswald)] uppercase tracking-wide text-center px-4">
