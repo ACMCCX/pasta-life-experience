@@ -1,66 +1,103 @@
+"use client";
+
+import { useState } from "react";
 import artConfig from "@/config/art.json";
 
 interface Artwork {
   id: string;
   title: string;
-  artist: string;
-  price: string;
-  description: string;
+  price: number;
+  medium: string;
+  dimensions: string;
   image: string;
   available: boolean;
-  medium?: string;
+  stripeProductId: string;
 }
 
-function ArtworkCard({ artwork, contactEmail }: { artwork: Artwork; contactEmail: string }) {
-  const inquireHref = `mailto:${contactEmail}?subject=Art Inquiry: ${encodeURIComponent(artwork.title)} by ${encodeURIComponent(artwork.artist)}&body=I'm interested in "${encodeURIComponent(artwork.title)}" by ${encodeURIComponent(artwork.artist)}. Please send me more information.`;
+interface Artist {
+  id: string;
+  name: string;
+  bio: string;
+  website: string;
+  instagram: string | null;
+  artworks: Artwork[];
+}
+
+function ArtworkCard({ artwork }: { artwork: Artwork }) {
+  const [isLoading, setIsLoading] = useState(false);
+
+  const handlePurchase = async () => {
+    setIsLoading(true);
+    try {
+      // Call backend to create Stripe checkout session
+      const response = await fetch("/api/checkout", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          productId: artwork.stripeProductId,
+          quantity: 1,
+          title: artwork.title,
+        }),
+      });
+
+      const data = await response.json();
+      if (data.url) {
+        window.location.href = data.url; // Redirect to Stripe checkout
+      }
+    } catch (error) {
+      console.error("Checkout error:", error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   return (
     <div
       className="rounded-xl overflow-hidden border border-[#2a2a2a] bg-[#1a1a1a] flex flex-col transition-all duration-300 hover:-translate-y-1"
       style={{ boxShadow: "0 4px 20px rgba(0,0,0,0.4)" }}
     >
-      {/* Art image placeholder */}
+      {/* Art image */}
       <div
-        className="w-full aspect-square flex flex-col items-center justify-center"
-        style={{ background: "linear-gradient(135deg, #1a1a1a, #2a1010, #1a1a1a)" }}
+        className="w-full aspect-square flex flex-col items-center justify-center bg-cover bg-center"
+        style={{
+          backgroundImage: `url(${artwork.image})`,
+          background: artwork.image
+            ? `url(${artwork.image})`
+            : "linear-gradient(135deg, #1a1a1a, #2a1010, #1a1a1a)",
+        }}
       >
-        <span className="text-5xl mb-2">🎨</span>
-        <span className="text-[#f5f5f5]/30 text-xs font-[family-name:var(--font-oswald)] uppercase tracking-wide text-center px-4">
-          {artwork.title}
-        </span>
+        {!artwork.image && (
+          <>
+            <span className="text-5xl mb-2">🎨</span>
+            <span className="text-[#f5f5f5]/30 text-xs font-[family-name:var(--font-oswald)] uppercase tracking-wide text-center px-4">
+              {artwork.title}
+            </span>
+          </>
+        )}
       </div>
 
       {/* Info */}
       <div className="p-4 flex flex-col flex-1">
-        <div className="mb-1">
-          <span className="text-[#ff6b1a] text-xs font-[family-name:var(--font-oswald)] uppercase tracking-wider font-semibold">
-            {artwork.artist}
-          </span>
-        </div>
         <h3 className="font-[family-name:var(--font-oswald)] font-bold uppercase tracking-wide text-[#f5f5f5] text-base leading-tight mb-1">
           {artwork.title}
         </h3>
-        {artwork.medium && (
-          <p className="text-[#f5f5f5]/40 text-xs font-[family-name:var(--font-inter)] mb-2">
-            {artwork.medium}
-          </p>
-        )}
-        <p className="text-[#f5f5f5]/50 text-xs font-[family-name:var(--font-inter)] leading-relaxed flex-1 mb-3">
-          {artwork.description}
+        <p className="text-[#f5f5f5]/40 text-xs font-[family-name:var(--font-inter)] mb-3">
+          {artwork.medium} • {artwork.dimensions}
         </p>
 
-        <div className="flex items-center justify-between gap-3">
+        <div className="flex items-center justify-between gap-3 mt-auto">
           <span className="font-[family-name:var(--font-oswald)] font-bold text-[#ffd700] text-lg">
-            {artwork.price}
+            ${artwork.price}
           </span>
           {artwork.available ? (
-            <a
-              href={inquireHref}
-              className="flex-1 text-center py-2 px-4 rounded-full font-[family-name:var(--font-oswald)] font-bold uppercase tracking-wider text-sm text-white transition-opacity hover:opacity-90"
+            <button
+              onClick={handlePurchase}
+              disabled={isLoading}
+              className="flex-1 text-center py-2 px-4 rounded-full font-[family-name:var(--font-oswald)] font-bold uppercase tracking-wider text-sm text-white transition-opacity hover:opacity-90 disabled:opacity-50"
               style={{ background: "linear-gradient(135deg, #e63030, #ff6b1a)" }}
             >
-              Inquire
-            </a>
+              {isLoading ? "Loading..." : "Purchase"}
+            </button>
           ) : (
             <span className="flex-1 text-center py-2 px-4 rounded-full font-[family-name:var(--font-oswald)] font-bold uppercase tracking-wider text-sm border border-[#2a2a2a] text-[#f5f5f5]/30 cursor-default">
               Sold
@@ -116,14 +153,65 @@ function GalleryPlaceholder({ galleryInfo }: { galleryInfo: string }) {
   );
 }
 
+function ArtistSection({ artist }: { artist: Artist }) {
+  return (
+    <div className="mb-12">
+      {/* Artist Header */}
+      <div className="mb-8">
+        <h3 className="font-[family-name:var(--font-oswald)] font-bold uppercase tracking-wider text-[#f5f5f5] text-2xl mb-2">
+          {artist.name}
+        </h3>
+        <p className="text-[#f5f5f5]/60 font-[family-name:var(--font-inter)] text-sm leading-relaxed mb-4">
+          {artist.bio}
+        </p>
+        {/* Links */}
+        <div className="flex gap-4 items-center">
+          {artist.website && (
+            <a
+              href={artist.website}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 text-[#ff6b1a] hover:text-[#ffd700] transition-colors text-sm font-[family-name:var(--font-oswald)] uppercase tracking-wide"
+            >
+              🌐 Website
+            </a>
+          )}
+          {artist.instagram && (
+            <a
+              href={artist.instagram}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 text-[#ff6b1a] hover:text-[#ffd700] transition-colors text-sm font-[family-name:var(--font-oswald)] uppercase tracking-wide"
+            >
+              📱 Instagram
+            </a>
+          )}
+        </div>
+      </div>
+
+      {/* Artwork Grid */}
+      <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
+        {artist.artworks.map((artwork) => (
+          <ArtworkCard key={artwork.id} artwork={artwork} />
+        ))}
+      </div>
+
+      {/* Footer note */}
+      <p className="text-[#f5f5f5]/40 font-[family-name:var(--font-inter)] text-xs mt-6 italic">
+        All proceeds go directly to {artist.name}. Pick up in-house at Graffiti Pasta Denton.
+      </p>
+    </div>
+  );
+}
+
 export default function ArtGallery() {
-  const { artworks, galleryInfo, contactEmail } = artConfig as {
+  const { artists, galleryInfo } = artConfig as {
     galleryInfo: string;
     contactEmail: string;
-    artworks: Artwork[];
+    artists: Artist[];
   };
 
-  const hasArtworks = artworks.length > 0;
+  const hasArtists = artists && artists.length > 0;
 
   return (
     <section id="art" className="gp-section" style={{ backgroundColor: "#0f0f0f" }}>
@@ -141,18 +229,16 @@ export default function ArtGallery() {
           </p>
         </div>
 
-        {hasArtworks ? (
+        {hasArtists ? (
           <>
             {/* Gallery mission */}
-            <p className="text-[#f5f5f5]/60 font-[family-name:var(--font-inter)] text-sm leading-relaxed mb-6 border-l-2 border-[#ff6b1a] pl-4">
+            <p className="text-[#f5f5f5]/60 font-[family-name:var(--font-inter)] text-sm leading-relaxed mb-8 border-l-2 border-[#ff6b1a] pl-4">
               {galleryInfo}
             </p>
-            {/* Artwork grid */}
-            <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
-              {artworks.map((artwork) => (
-                <ArtworkCard key={artwork.id} artwork={artwork} contactEmail={contactEmail} />
-              ))}
-            </div>
+            {/* Artist sections */}
+            {artists.map((artist) => (
+              <ArtistSection key={artist.id} artist={artist} />
+            ))}
           </>
         ) : (
           <GalleryPlaceholder galleryInfo={galleryInfo} />

@@ -1,5 +1,55 @@
 {
   "galleryInfo": "Graffiti Pasta is proud to showcase local artists. 100% of every sale goes directly to the artist. We're just the gallery.",
   "contactEmail": "acmcreativeconcepts@gmail.com",
-  "artworks": []
+  "artists": [
+    {
+      "id": "gabriel",
+      "name": "Gabriel",
+      "bio": "Gabriel is a local Denton artist who has been a friend of Graffiti Pasta from day one. We showcase his art currently on our walls which you can purchase here or in house.",
+      "website": "https://www.salondekbarte.com/",
+      "instagram": null,
+      "artworks": [
+        {
+          "id": "gabriel-1",
+          "title": "DENTON Rising",
+          "price": 300,
+          "medium": "Acrylic on Canvas",
+          "dimensions": "30\" x 30\"",
+          "image": "/images/gabriel/denton-rising.jpg",
+          "available": true,
+          "stripeProductId": "prod_UpdyPEHmVBWFJT"
+        },
+        {
+          "id": "gabriel-2",
+          "title": "Cosmic Consciousness",
+          "price": 300,
+          "medium": "Acrylic on Canvas",
+          "dimensions": "30\" x 30\"",
+          "image": "/images/gabriel/cosmic-consciousness.jpg",
+          "available": true,
+          "stripeProductId": "prod_Upe0LdTwisZ7cZ"
+        },
+        {
+          "id": "gabriel-3",
+          "title": "Ethereal Dreams",
+          "price": 300,
+          "medium": "Acrylic on Canvas",
+          "dimensions": "30\" x 30\"",
+          "image": "/images/gabriel/ethereal-dreams.jpg",
+          "available": true,
+          "stripeProductId": "prod_Upe07ZxhWuCedz"
+        },
+        {
+          "id": "gabriel-4",
+          "title": "Red Velocity",
+          "price": 300,
+          "medium": "Acrylic on Canvas",
+          "dimensions": "30\" x 30\"",
+          "image": "/images/gabriel/red-velocity.jpg",
+          "available": true,
+          "stripeProductId": "prod_Upe1x2guQ8lOgs"
+        }
+      ]
+    }
+  ]
 }
