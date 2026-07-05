@@ -29,6 +29,7 @@ function ArtworkCard({ artwork }: { artwork: Artwork }) {
   const handlePurchase = async () => {
     setIsLoading(true);
     try {
+      console.log("Purchase clicked for:", artwork.title, artwork.stripeProductId);
       // Call backend to create Stripe checkout session
       const response = await fetch("/api/checkout", {
         method: "POST",
@@ -40,12 +41,19 @@ function ArtworkCard({ artwork }: { artwork: Artwork }) {
         }),
       });
 
+      console.log("Checkout API response:", response);
       const data = await response.json();
+      console.log("Checkout data:", data);
+      
       if (data.url) {
+        console.log("Redirecting to:", data.url);
         window.location.href = data.url; // Redirect to Stripe checkout
+      } else if (data.error) {
+        alert("Error: " + data.error);
       }
     } catch (error) {
       console.error("Checkout error:", error);
+      alert("Error processing checkout. Check console for details.");
     } finally {
       setIsLoading(false);
     }
@@ -58,12 +66,15 @@ function ArtworkCard({ artwork }: { artwork: Artwork }) {
     >
       {/* Art image */}
       <div
-        className="w-full aspect-square flex flex-col items-center justify-center bg-cover bg-center"
+        className="w-full aspect-square flex flex-col items-center justify-center"
         style={{
           backgroundImage: `url(${artwork.image})`,
+          backgroundSize: "cover",
+          backgroundPosition: "center",
           background: artwork.image
-            ? `url(${artwork.image})`
+            ? `linear-gradient(rgba(0,0,0,0.1), rgba(0,0,0,0.1)), url(${artwork.image})`
             : "linear-gradient(135deg, #1a1a1a, #2a1010, #1a1a1a)",
+          backgroundRepeat: "no-repeat",
         }}
       >
         {!artwork.image && (
