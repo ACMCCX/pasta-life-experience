@@ -30,42 +30,45 @@ const comics: Comic[] = [
 
 function ComicCard({ comic }: { comic: Comic }) {
   return (
-    <div className="flex flex-col gap-4">
-      {/* Cover */}
-      <div className="w-full rounded-xl overflow-hidden border border-[#2a2a2a] bg-[#1a1a1a]">
-        <div className="w-full aspect-[3/4] overflow-hidden">
-          <img
-            src={comic.coverImage}
-            alt={`${comic.title} Cover`}
-            style={{
-              width: "100%",
-              height: "100%",
-              objectFit: "cover",
-              objectPosition: "center",
-            }}
-          />
-        </div>
-      </div>
-
-      {/* Comic */}
-      <div className="w-full rounded-xl overflow-hidden border border-[#2a2a2a] bg-[#1a1a1a]">
-        <div className="w-full aspect-auto overflow-hidden">
-          <img
-            src={comic.comicImage}
-            alt={comic.title}
-            style={{
-              width: "100%",
-              height: "auto",
-              objectFit: "contain",
-            }}
-          />
-        </div>
-      </div>
-
+    <div className="flex flex-col gap-4 mb-8">
       {/* Title */}
-      <h3 className="font-[family-name:var(--font-oswald)] font-bold uppercase tracking-wider text-[#f5f5f5] text-lg text-center">
+      <h3 className="font-[family-name:var(--font-oswald)] font-bold uppercase tracking-wider text-[#f5f5f5] text-lg">
         {comic.title}
       </h3>
+      
+      {/* Horizontal layout: Cover (left) + Comic (right) */}
+      <div className="flex flex-col lg:flex-row gap-4">
+        {/* Cover - Left */}
+        <div className="w-full lg:w-1/3 rounded-xl overflow-hidden border border-[#2a2a2a] bg-[#1a1a1a]">
+          <div className="w-full aspect-[3/4] overflow-hidden">
+            <img
+              src={comic.coverImage}
+              alt={`${comic.title} Cover`}
+              style={{
+                width: "100%",
+                height: "100%",
+                objectFit: "cover",
+                objectPosition: "center",
+              }}
+            />
+          </div>
+        </div>
+
+        {/* Comic - Right */}
+        <div className="w-full lg:w-2/3 rounded-xl overflow-hidden border border-[#2a2a2a] bg-[#1a1a1a]">
+          <div className="w-full overflow-hidden">
+            <img
+              src={comic.comicImage}
+              alt={comic.title}
+              style={{
+                width: "100%",
+                height: "auto",
+                objectFit: "contain",
+              }}
+            />
+          </div>
+        </div>
+      </div>
     </div>
   );
 }
@@ -87,8 +90,8 @@ export default function ComicsSection() {
           </p>
         </div>
 
-        {/* Comics Grid */}
-        <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
+        {/* Comics List - Stacked rows */}
+        <div className="flex flex-col">
           {comics.map((comic) => (
             <ComicCard key={comic.id} comic={comic} />
           ))}
