@@ -65,7 +65,7 @@
           "price": 30,
           "medium": "Hand-Airbrushed",
           "dimensions": "One of a Kind",
-          "image": "/images/atd/bleached-purple-gp.jpg",
+          "image": "/images/atd/bleached-purple-gp.HEIC",
           "available": true,
           "inhouse": true
         },
@@ -75,7 +75,7 @@
           "price": 30,
           "medium": "Hand-Airbrushed",
           "dimensions": "One of a Kind",
-          "image": "/images/atd/camo-purple.jpg",
+          "image": "/images/atd/camo-purple.JPG",
           "available": true,
           "inhouse": true
         },
@@ -85,7 +85,7 @@
           "price": 30,
           "medium": "Hand-Airbrushed",
           "dimensions": "One of a Kind",
-          "image": "/images/atd/green-drip.jpg",
+          "image": "/images/atd/green-drip.JPG",
           "available": true,
           "inhouse": true
         },
@@ -95,7 +95,7 @@
           "price": 30,
           "medium": "Hand-Airbrushed",
           "dimensions": "One of a Kind",
-          "image": "/images/atd/splatter-purple.jpg",
+          "image": "/images/atd/splatter-purple.JPG",
           "available": true,
           "inhouse": true
         }
