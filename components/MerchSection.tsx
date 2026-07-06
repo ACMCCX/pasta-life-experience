@@ -122,8 +122,8 @@ export default function MerchSection() {
             >
               👕 Merch
             </h2>
-            <p className="text-[#f5f5f5]/50 font-[family-name:var(--font-inter)] text-sm">
-              Wear the life.
+            <p className="text-[#f5f5f5]/50 font-[family-name:var(--font-inter)] text-sm leading-relaxed">
+              Artist Till Death is a local artist group that does all custom hats for Graffiti Pasta. Each hat is one of a kind hand painted and airbrushed. You can purchase these hats in house at Graffiti Pasta. Just ask your bartender.
             </p>
           </div>
           {shopUrl && (
