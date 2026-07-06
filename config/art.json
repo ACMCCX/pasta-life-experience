@@ -65,38 +65,11 @@
       "ctaText": "Check out ATD's work and follow them on Instagram",
       "artworks": [
         {
-          "id": "atd-1",
-          "title": "Frankie",
-          "medium": "Digital Art",
-          "description": "In this image you can look directly into the monsters eyes and see his pain and sorrow. You can feel his journey to finding peace within himself and within all of man that surrounds him.",
-          "image": "/images/atd/frankie.jpg",
-          "available": true,
-          "storeLink": "https://artisttilldeath.com"
-        },
-        {
           "id": "atd-2",
           "title": "Graffiti Pasta Skateboard Sign",
           "medium": "Custom Commission",
           "description": "This was an idea that we brought to ATD for a custom piece. When asked, all we said was two skateboards, one that says GRAFFITI and the other that said PASTA. What we got was something that was above and beyond our artistic vision and more than we could have asked for. This piece is now located smack in the middle of our bar in Denton as a main focus piece that really ties the room together.",
           "image": "/images/atd/gp-skateboard-sign.jpg",
-          "available": true,
-          "storeLink": "https://artisttilldeath.com"
-        },
-        {
-          "id": "atd-3",
-          "title": "Sexy Storm Trooper",
-          "medium": "Charcoal",
-          "description": "This is drawn with charcoal and was a piece that was created for May the Fourth.",
-          "image": "/images/atd/sexy-storm-trooper.jpg",
-          "available": true,
-          "storeLink": "https://artisttilldeath.com"
-        },
-        {
-          "id": "atd-4",
-          "title": "Trooper Reservoir Hip-Hop Dogs",
-          "medium": "Digital Art",
-          "description": "Two great movies, connected by a culture of music to bring into one new universe. Fun and simple.",
-          "image": "/images/atd/trooper-dogs.jpg",
           "available": true,
           "storeLink": "https://artisttilldeath.com"
         }
