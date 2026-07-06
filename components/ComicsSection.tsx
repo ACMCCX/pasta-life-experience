@@ -11,8 +11,8 @@ const comics: Comic[] = [
   {
     id: "bucatini",
     title: "Bucatini — Hallow Inside",
-    coverImage: "/images/svaya/_Bucatini/Bucatini_Hallow Inside_Cover.jpg",
-    comicImage: "/images/svaya/_Bucatini/Bucatini_Hallow Inside_P1.jpg",
+    coverImage: "/images/svaya/_Bucatini/_Bucatini_Hallow Inside_Cover.jpg",
+    comicImage: "/images/svaya/_Bucatini/_Bucatini_Hallow Inside_P1.jpg",
   },
   {
     id: "eatmorpazta",
@@ -23,8 +23,8 @@ const comics: Comic[] = [
   {
     id: "farfalle",
     title: "Farfalle — Bowtie Anonymous",
-    coverImage: "/images/svaya/_Farfalle/Farfalle Bowtie Anonymous_Bowtie_Cover_P1.jpg",
-    comicImage: "/images/svaya/_Farfalle/Farfalle Bowtie Anonymous_Bowtie_P2.jpg",
+    coverImage: "/images/svaya/_Farfalle/_Farfalle Bowtie Anonymous_Bowtie_Cover_P1.jpg",
+    comicImage: "/images/svaya/_Farfalle/_Farfalle Bowtie Anonymous_Bowtie_P2.jpg",
   },
 ];
 
@@ -83,7 +83,7 @@ export default function ComicsSection() {
             🎨 Pasta Life Comics
           </h2>
           <p className="text-[#f5f5f5]/50 font-[family-name:var(--font-inter)] text-sm">
-            Weekly comic strips by Svaya. New comics drop every Sunday.
+            Weekly comic strips by Svaya. New comics drop every Sunday. <a href="#art" className="text-[#ff6b1a] hover:text-[#ffd700] underline">Meet Svaya →</a>
           </p>
         </div>
 

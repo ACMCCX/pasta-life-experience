@@ -7,6 +7,7 @@ const navLinks = [
   { label: "Watch", href: "#videos" },
   { label: "Shop", href: "#merch" },
   { label: "Art", href: "#art" },
+  { label: "Comics", href: "#comics" },
   { label: "Rewards", href: "#rewards" },
   { label: "Games", href: "#games" },
 ];
