@@ -5,6 +5,7 @@ const navLinks = [
   { label: "🎬 Watch", href: "#videos" },
   { label: "👕 Shop", href: "#merch" },
   { label: "🎨 Art", href: "#art" },
+  { label: "💬 Comics", href: "#comics" },
   { label: "🏆 Rewards", href: "#rewards" },
   { label: "🎮 Games", href: "#games" },
 ];
@@ -60,7 +61,7 @@ export default function Hero() {
         </p>
 
         {/* Navigation pills grid */}
-        <div className="grid grid-cols-3 gap-3 max-w-sm mx-auto sm:max-w-md sm:grid-cols-3">
+        <div className="grid grid-cols-3 gap-3 max-w-sm mx-auto sm:max-w-md lg:grid-cols-4">
           {navLinks.map((link) => (
             <a
               key={link.href}
