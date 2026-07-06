@@ -84,7 +84,7 @@ export default function ComicsSection() {
             className="font-[family-name:var(--font-oswald)] font-bold uppercase tracking-wider text-[#f5f5f5] mb-2"
             style={{ fontSize: "clamp(1.8rem, 6vw, 2.5rem)" }}
           >
-            🎨 Pasta Life Comics
+            💬 Pasta Life Comics
           </h2>
           <p className="text-[#f5f5f5]/50 font-[family-name:var(--font-inter)] text-sm">
             Weekly comic strips by Svaya. New comics drop every Sunday.

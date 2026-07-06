@@ -2,10 +2,10 @@ import Image from "next/image";
 
 const navLinks = [
   { label: "🎵 Listen", href: "#music" },
-  { label: "🎬 Watch", href: "#videos" },
   { label: "👕 Shop", href: "#merch" },
   { label: "🎨 Art", href: "#art" },
   { label: "💬 Comics", href: "#comics" },
+  { label: "🎬 Watch", href: "#videos" },
   { label: "🏆 Rewards", href: "#rewards" },
   { label: "🎮 Games", href: "#games" },
 ];
