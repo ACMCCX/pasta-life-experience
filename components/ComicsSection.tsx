@@ -36,11 +36,11 @@ function ComicCard({ comic }: { comic: Comic }) {
         {comic.title}
       </h3>
       
-      {/* Horizontal layout: Cover (left) + Comic (right) */}
+      {/* Horizontal layout: Cover (left) + Comic (right) - Equal size panels */}
       <div className="flex flex-col lg:flex-row gap-4">
-        {/* Cover - Left */}
-        <div className="w-full lg:w-1/3 rounded-xl overflow-hidden border border-[#2a2a2a] bg-[#1a1a1a]">
-          <div className="w-full aspect-[3/4] overflow-hidden">
+        {/* Cover - Left (square frame) */}
+        <div className="w-full lg:w-1/2 rounded-xl overflow-hidden border border-[#2a2a2a] bg-[#1a1a1a]">
+          <div className="w-full aspect-square overflow-hidden">
             <img
               src={comic.coverImage}
               alt={`${comic.title} Cover`}
@@ -54,16 +54,17 @@ function ComicCard({ comic }: { comic: Comic }) {
           </div>
         </div>
 
-        {/* Comic - Right */}
-        <div className="w-full lg:w-2/3 rounded-xl overflow-hidden border border-[#2a2a2a] bg-[#1a1a1a]">
-          <div className="w-full overflow-hidden">
+        {/* Comic - Right (square frame) */}
+        <div className="w-full lg:w-1/2 rounded-xl overflow-hidden border border-[#2a2a2a] bg-[#1a1a1a]">
+          <div className="w-full aspect-square overflow-hidden">
             <img
               src={comic.comicImage}
               alt={comic.title}
               style={{
                 width: "100%",
-                height: "auto",
-                objectFit: "contain",
+                height: "100%",
+                objectFit: "cover",
+                objectPosition: "center",
               }}
             />
           </div>
@@ -86,7 +87,7 @@ export default function ComicsSection() {
             🎨 Pasta Life Comics
           </h2>
           <p className="text-[#f5f5f5]/50 font-[family-name:var(--font-inter)] text-sm">
-            Weekly comic strips by Svaya. New comics drop every Sunday. <a href="#art" className="text-[#ff6b1a] hover:text-[#ffd700] underline">Meet Svaya →</a>
+            Weekly comic strips by Svaya. New comics drop every Sunday.
           </p>
         </div>
 
