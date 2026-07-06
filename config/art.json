@@ -101,6 +101,54 @@
           "storeLink": "https://artisttilldeath.com"
         }
       ]
+    },
+    {
+      "id": "detox",
+      "name": "DETOX (Jerod Davies)",
+      "intro": "DETOX is the main artist who tagged the interior of Graffiti Pasta in the Denton location. His signature spans from the main mural in the kitchen, to the mural down in the basement and all the corners, benches, and everywhere in between.",
+      "bio": "JEROD DAVIES aka DTOX is a multifaceted self-taught artist raised in Dallas, Texas by way of Grand Rapids, Michigan. Coming from a long line of visual artists in his immediate family Jerod moves comfortably between styles and excels naturally at his use of color and ornate application. His passionate approach at creating art is fueled by a deeply rooted attraction for unconventional beauty. Heavily influenced by nature, his style is virtually impossible to categorize yet easy to describe, bold portraits, believable and surreal, direct yet ornate with a vibrant sarcasm.",
+      "website": "https://artworkforhumans.com/",
+      "instagram": "https://www.instagram.com/artworkforhumans",
+      "facebook": "https://www.facebook.com/artworkforhumans",
+      "ctaText": "Explore DETOX's full portfolio",
+      "artworks": [
+        {
+          "id": "detox-1",
+          "title": "Little Corners",
+          "description": "We wanted to make part of the basement feel like you were on a rooftop in a major city at night looking at other rooftops around you and also wanted a wall that was just tagged over like it had been getting tagged by multiple artists year after year.",
+          "image": "/images/detox/graffiti-pasta-corner.JPG",
+          "available": true,
+          "storeLink": "https://artworkforhumans.com/",
+          "buttonText": "See His Art"
+        },
+        {
+          "id": "detox-2",
+          "title": "Main Mural",
+          "description": "We asked Detox to put a mural that would represent our city, Denton TX and infuse the pasta life culture. We really just let him go and create and he did an amazing image of the Denton courthouse that sits right across the street from us.",
+          "image": "/images/detox/kitchen-wall-mural.JPG",
+          "available": true,
+          "storeLink": "https://artworkforhumans.com/",
+          "buttonText": "See His Art"
+        },
+        {
+          "id": "detox-3",
+          "title": "Basement Mural",
+          "description": "This was a mural that we wanted to showcase one of our favorite style of logos, the AC/DC style logo.",
+          "image": "/images/detox/pasta-acdc-mural.jpg",
+          "available": true,
+          "storeLink": "https://artworkforhumans.com/",
+          "buttonText": "See His Art"
+        },
+        {
+          "id": "detox-4",
+          "title": "Pasta Life",
+          "description": "Detox loves putting little doodles all over the place in our building. The more you look, the more you find. Pasta Life is our culture here at Graffiti Pasta and Detox splashed it in the right spots of our restaurant.",
+          "image": "/images/detox/pasta-life-tag.jpg",
+          "available": true,
+          "storeLink": "https://artworkforhumans.com/",
+          "buttonText": "See His Art"
+        }
+      ]
     }
   ]
 }
