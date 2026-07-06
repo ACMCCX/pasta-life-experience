@@ -2,31 +2,34 @@
   "shopUrl": "https://graffiti-pasta.myshopify.com",
   "products": [
     {
-      "id": "1",
-      "title": "GP Logo Tee",
-      "price": "$32",
-      "description": "Classic Graffiti Pasta logo. Heavy cotton. Built to last.",
-      "image": "/merch/gp-tee.jpg",
-      "buyUrl": "https://graffiti-pasta.myshopify.com",
-      "available": false
+      "id": "atd-1",
+      "title": "Camo Purple Hat",
+      "price": "$30",
+      "description": "Hand-airbrushed custom design by Artist Till Death. One of a kind. Available in-house at Graffiti Pasta Denton.",
+      "image": "/images/merch/camo-purple.JPG",
+      "buyUrl": "#",
+      "available": true,
+      "inhouse": true
     },
     {
-      "id": "2",
-      "title": "Pasta Life Hat",
-      "price": "$28",
-      "description": "Structured snapback. Street-ready.",
-      "image": "/merch/gp-hat.jpg",
-      "buyUrl": "https://graffiti-pasta.myshopify.com",
-      "available": false
+      "id": "atd-2",
+      "title": "Green Drip Hat",
+      "price": "$30",
+      "description": "Hand-airbrushed custom design by Artist Till Death. One of a kind. Available in-house at Graffiti Pasta Denton.",
+      "image": "/images/merch/green-drip.JPG",
+      "buyUrl": "#",
+      "available": true,
+      "inhouse": true
     },
     {
-      "id": "3",
-      "title": "GP Sticker Pack",
-      "price": "$8",
-      "description": "5-pack. Stick 'em everywhere.",
-      "image": "/merch/gp-stickers.jpg",
-      "buyUrl": "https://graffiti-pasta.myshopify.com",
-      "available": false
+      "id": "atd-3",
+      "title": "Splatter Purple Hat",
+      "price": "$30",
+      "description": "Hand-airbrushed custom design by Artist Till Death. One of a kind. Available in-house at Graffiti Pasta Denton.",
+      "image": "/images/merch/splatter-purple.JPG",
+      "buyUrl": "#",
+      "available": true,
+      "inhouse": true
     }
   ]
 }

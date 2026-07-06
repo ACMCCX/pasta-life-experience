@@ -8,6 +8,7 @@ interface Product {
   image: string;
   buyUrl: string;
   available: boolean;
+  inhouse?: boolean;
 }
 
 function ImagePlaceholder({ title }: { title: string }) {
@@ -32,7 +33,22 @@ function ProductCard({ product }: { product: Product }) {
       style={{ boxShadow: "0 4px 20px rgba(0,0,0,0.4)" }}
     >
       {/* Image */}
-      <ImagePlaceholder title={product.title} />
+      {product.image && product.image !== "/merch/gp-tee.jpg" ? (
+        <div className="w-full aspect-square overflow-hidden bg-[#1a1a1a] flex items-center justify-center">
+          <img
+            src={product.image}
+            alt={product.title}
+            style={{
+              width: "100%",
+              height: "100%",
+              objectFit: "cover",
+              objectPosition: "center",
+            }}
+          />
+        </div>
+      ) : (
+        <ImagePlaceholder title={product.title} />
+      )}
 
       {/* Info */}
       <div className="p-4 flex flex-col flex-1">
@@ -62,7 +78,13 @@ function ProductCard({ product }: { product: Product }) {
           </span>
         )}
 
-        {product.available ? (
+        {product.inhouse ? (
+          <span
+            className="block text-center py-2.5 px-4 rounded-full font-[family-name:var(--font-oswald)] font-bold uppercase tracking-wider text-sm border border-[#ff6b1a] text-[#ff6b1a] cursor-default"
+          >
+            Ask at the Bar
+          </span>
+        ) : product.available ? (
           <a
             href={product.buyUrl}
             target="_blank"

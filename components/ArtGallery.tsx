@@ -124,7 +124,7 @@ function ArtworkCard({ artwork }: { artwork: Artwork }) {
               className="flex-1 text-center py-2 px-4 rounded-full font-[family-name:var(--font-oswald)] font-bold uppercase tracking-wider text-sm text-white transition-opacity hover:opacity-90"
               style={{ background: "linear-gradient(135deg, #e63030, #ff6b1a)" }}
             >
-              View on Store
+              View Website
             </a>
           ) : artwork.inhouse ? (
             <span className="flex-1 text-center py-2 px-4 rounded-full font-[family-name:var(--font-oswald)] font-bold uppercase tracking-wider text-sm border border-[#ff6b1a] text-[#ff6b1a] cursor-default">
