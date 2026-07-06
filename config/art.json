@@ -55,9 +55,11 @@
     {
       "id": "atd",
       "name": "Artist Till Death (ATD)",
+      "intro": "Artist Till Death is a local artist group that does all custom hats for Graffiti Pasta. Each hat is one of a kind hand painted and airbrushed. You can purchase these hats in house at Graffiti Pasta. Just ask your bartender.",
       "bio": "Looking for bold, soulful, and unforgettable art? You just found it. These are the finished, framed, and ready-to-hang masterpieces straight from the studio of Jeff and Erika Thornton—two artists who live and breathe creativity. From large-scale statement pieces to intimate works full of detail and heart, every painting is a window into the madness and magic of the Artist Till Death world.",
       "website": "https://artisttilldeath.com/",
       "instagram": "https://www.instagram.com/artisttilldeathstudios/",
+      "ctaText": "Check out ATD's work and follow them on Instagram",
       "artworks": [
         {
           "id": "atd-1",
@@ -65,7 +67,7 @@
           "price": 30,
           "medium": "Hand-Airbrushed",
           "dimensions": "One of a Kind",
-          "image": "/images/atd/bleached-purple-gp.HEIC",
+          "image": "/images/atd/bleached-purple-gp.jpg",
           "available": true,
           "inhouse": true
         },

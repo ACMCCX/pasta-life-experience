@@ -18,9 +18,11 @@ interface Artwork {
 interface Artist {
   id: string;
   name: string;
+  intro?: string;
   bio: string;
   website: string;
   instagram: string | null;
+  ctaText?: string;
   artworks: Artwork[];
 }
 
@@ -174,34 +176,51 @@ function ArtistSection({ artist }: { artist: Artist }) {
     <div className="mb-12">
       {/* Artist Header */}
       <div className="mb-8">
-        <h3 className="font-[family-name:var(--font-oswald)] font-bold uppercase tracking-wider text-[#f5f5f5] text-2xl mb-2">
+        <h3 className="font-[family-name:var(--font-oswald)] font-bold uppercase tracking-wider text-[#f5f5f5] text-2xl mb-4">
           {artist.name}
         </h3>
+        
+        {/* Intro (if available) */}
+        {artist.intro && (
+          <p className="text-[#f5f5f5]/70 font-[family-name:var(--font-inter)] text-sm leading-relaxed mb-4 border-l-2 border-[#ff6b1a] pl-4">
+            {artist.intro}
+          </p>
+        )}
+        
+        {/* Bio */}
         <p className="text-[#f5f5f5]/60 font-[family-name:var(--font-inter)] text-sm leading-relaxed mb-4">
           {artist.bio}
         </p>
-        {/* Links */}
-        <div className="flex gap-4 items-center">
-          {artist.website && (
-            <a
-              href={artist.website}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 text-[#ff6b1a] hover:text-[#ffd700] transition-colors text-sm font-[family-name:var(--font-oswald)] uppercase tracking-wide"
-            >
-              🌐 Website
-            </a>
+        
+        {/* Links + CTA */}
+        <div className="flex flex-col gap-3">
+          {artist.ctaText && (
+            <p className="text-[#ff6b1a] font-[family-name:var(--font-oswald)] text-xs uppercase tracking-wider font-semibold">
+              👉 {artist.ctaText}
+            </p>
           )}
-          {artist.instagram && (
-            <a
-              href={artist.instagram}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 text-[#ff6b1a] hover:text-[#ffd700] transition-colors text-sm font-[family-name:var(--font-oswald)] uppercase tracking-wide"
-            >
-              📱 Instagram
-            </a>
-          )}
+          <div className="flex gap-4 items-center">
+            {artist.website && (
+              <a
+                href={artist.website}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 text-[#ff6b1a] hover:text-[#ffd700] transition-colors text-sm font-[family-name:var(--font-oswald)] uppercase tracking-wide"
+              >
+                🌐 Website
+              </a>
+            )}
+            {artist.instagram && (
+              <a
+                href={artist.instagram}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 text-[#ff6b1a] hover:text-[#ffd700] transition-colors text-sm font-[family-name:var(--font-oswald)] uppercase tracking-wide"
+              >
+                📱 Instagram
+              </a>
+            )}
+          </div>
         </div>
       </div>
 
@@ -215,7 +234,7 @@ function ArtistSection({ artist }: { artist: Artist }) {
       {/* Footer note */}
       <p className="text-[#f5f5f5]/40 font-[family-name:var(--font-inter)] text-xs mt-6 italic">
         {artist.artworks[0]?.inhouse
-          ? `Custom pieces created by ${artist.name}. Each design is one of a kind and hand-crafted. Available for purchase in-house at Graffiti Pasta Denton.`
+          ? `Each design is one of a kind and hand-crafted. Available for purchase in-house at Graffiti Pasta Denton.`
           : `All proceeds go directly to ${artist.name}. Pick up in-house at Graffiti Pasta Denton.`}
       </p>
     </div>
