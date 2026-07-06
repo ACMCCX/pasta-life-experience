@@ -11,7 +11,8 @@ interface Artwork {
   dimensions: string;
   image: string;
   available: boolean;
-  stripeProductId: string;
+  stripeProductId?: string;
+  inhouse?: boolean;
 }
 
 interface Artist {
@@ -100,7 +101,11 @@ function ArtworkCard({ artwork }: { artwork: Artwork }) {
           <span className="font-[family-name:var(--font-oswald)] font-bold text-[#ffd700] text-lg">
             ${artwork.price}
           </span>
-          {artwork.available ? (
+          {artwork.inhouse ? (
+            <span className="flex-1 text-center py-2 px-4 rounded-full font-[family-name:var(--font-oswald)] font-bold uppercase tracking-wider text-sm border border-[#ff6b1a] text-[#ff6b1a] cursor-default">
+              In-House
+            </span>
+          ) : artwork.available ? (
             <button
               onClick={handlePurchase}
               disabled={isLoading}
@@ -209,7 +214,9 @@ function ArtistSection({ artist }: { artist: Artist }) {
 
       {/* Footer note */}
       <p className="text-[#f5f5f5]/40 font-[family-name:var(--font-inter)] text-xs mt-6 italic">
-        All proceeds go directly to {artist.name}. Pick up in-house at Graffiti Pasta Denton.
+        {artist.artworks[0]?.inhouse
+          ? `Custom pieces created by ${artist.name}. Each design is one of a kind and hand-crafted. Available for purchase in-house at Graffiti Pasta Denton.`
+          : `All proceeds go directly to ${artist.name}. Pick up in-house at Graffiti Pasta Denton.`}
       </p>
     </div>
   );

@@ -1,6 +1,7 @@
 {
-  "galleryInfo": "Graffiti Pasta is proud to showcase local artists. 100% of every sale goes directly to the artist. We're just the gallery.",
+  "galleryInfo": "Graffiti Pasta is proud to showcase local artists. We support independent creators and promote their work. Shop what you love.",
   "contactEmail": "acmcreativeconcepts@gmail.com",
+  "inHouseNote": "Available for purchase in-house at Graffiti Pasta Denton.",
   "artists": [
     {
       "id": "gabriel",
@@ -48,6 +49,55 @@
           "image": "/images/gabriel/red-velocity.jpg",
           "available": true,
           "stripeProductId": "prod_Upe1x2guQ8lOgs"
+        }
+      ]
+    },
+    {
+      "id": "atd",
+      "name": "Artist Till Death (ATD)",
+      "bio": "Looking for bold, soulful, and unforgettable art? You just found it. These are the finished, framed, and ready-to-hang masterpieces straight from the studio of Jeff and Erika Thornton—two artists who live and breathe creativity. From large-scale statement pieces to intimate works full of detail and heart, every painting is a window into the madness and magic of the Artist Till Death world.",
+      "website": "https://artisttilldeath.com/",
+      "instagram": "https://www.instagram.com/artisttilldeathstudios/",
+      "artworks": [
+        {
+          "id": "atd-1",
+          "title": "Bleached Purple GP",
+          "price": 30,
+          "medium": "Hand-Airbrushed",
+          "dimensions": "One of a Kind",
+          "image": "/images/atd/bleached-purple-gp.jpg",
+          "available": true,
+          "inhouse": true
+        },
+        {
+          "id": "atd-2",
+          "title": "Camo Purple",
+          "price": 30,
+          "medium": "Hand-Airbrushed",
+          "dimensions": "One of a Kind",
+          "image": "/images/atd/camo-purple.jpg",
+          "available": true,
+          "inhouse": true
+        },
+        {
+          "id": "atd-3",
+          "title": "Green Drip",
+          "price": 30,
+          "medium": "Hand-Airbrushed",
+          "dimensions": "One of a Kind",
+          "image": "/images/atd/green-drip.jpg",
+          "available": true,
+          "inhouse": true
+        },
+        {
+          "id": "atd-4",
+          "title": "Splatter Purple",
+          "price": 30,
+          "medium": "Hand-Airbrushed",
+          "dimensions": "One of a Kind",
+          "image": "/images/atd/splatter-purple.jpg",
+          "available": true,
+          "inhouse": true
         }
       ]
     }
