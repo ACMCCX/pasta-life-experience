@@ -15,6 +15,7 @@ interface Artwork {
   stripeProductId?: string;
   inhouse?: boolean;
   storeLink?: string;
+  internalLink?: string;
   buttonText?: string;
 }
 
@@ -23,12 +24,13 @@ interface Artist {
   name: string;
   intro?: string;
   bio: string;
-  website: string;
+  website: string | null;
   instagram: string | null;
   facebook?: string;
   youtube?: string;
   tiktok?: string;
   ctaText?: string;
+  noExternalLinks?: boolean;
   artworks: Artwork[];
 }
 
@@ -117,7 +119,15 @@ function ArtworkCard({ artwork }: { artwork: Artwork }) {
               ${artwork.price}
             </span>
           )}
-          {artwork.storeLink ? (
+          {artwork.internalLink ? (
+            <a
+              href={artwork.internalLink}
+              className="flex-1 text-center py-2 px-4 rounded-full font-[family-name:var(--font-oswald)] font-bold uppercase tracking-wider text-sm text-white transition-opacity hover:opacity-90"
+              style={{ background: "linear-gradient(135deg, #e63030, #ff6b1a)" }}
+            >
+              {artwork.buttonText || "View"}
+            </a>
+          ) : artwork.storeLink ? (
             <a
               href={artwork.storeLink}
               target="_blank"
@@ -217,6 +227,7 @@ function ArtistSection({ artist }: { artist: Artist }) {
         </p>
         
         {/* Links + CTA */}
+        {!artist.noExternalLinks && (
         <div className="flex flex-col gap-3">
           {artist.ctaText && (
             <p className="text-[#ff6b1a] font-[family-name:var(--font-oswald)] text-xs uppercase tracking-wider font-semibold">
@@ -277,6 +288,7 @@ function ArtistSection({ artist }: { artist: Artist }) {
             )}
           </div>
         </div>
+        )}
       </div>
 
       {/* Artwork Grid */}
@@ -287,13 +299,20 @@ function ArtistSection({ artist }: { artist: Artist }) {
       </div>
 
       {/* Footer note */}
-      <p className="text-[#f5f5f5]/40 font-[family-name:var(--font-inter)] text-xs mt-6 italic">
-        {artist.artworks[0]?.inhouse
-          ? `Each design is one of a kind and hand-crafted. Available for purchase in-house at Graffiti Pasta Denton.`
-          : artist.artworks[0]?.storeLink
-          ? `Portfolio pieces available through ${artist.name}. Click to explore more.`
-          : `All proceeds go directly to ${artist.name}. Pick up in-house at Graffiti Pasta Denton.`}
-      </p>
+      {!artist.noExternalLinks && (
+        <p className="text-[#f5f5f5]/40 font-[family-name:var(--font-inter)] text-xs mt-6 italic">
+          {artist.artworks[0]?.inhouse
+            ? `Each design is one of a kind and hand-crafted. Available for purchase in-house at Graffiti Pasta Denton.`
+            : artist.artworks[0]?.storeLink
+            ? `Portfolio pieces available through ${artist.name}. Click to explore more.`
+            : `All proceeds go directly to ${artist.name}. Pick up in-house at Graffiti Pasta Denton.`}
+        </p>
+      )}
+      {artist.noExternalLinks && (
+        <p className="text-[#f5f5f5]/40 font-[family-name:var(--font-inter)] text-xs mt-6 italic">
+          Meet {artist.name} at Graffiti Pasta Denton. She's a server, bartender, and the creative force behind our stories.
+        </p>
+      )}
     </div>
   );
 }

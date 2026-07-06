@@ -149,6 +149,25 @@
           "buttonText": "See His Art"
         }
       ]
+    },
+    {
+      "id": "svaya",
+      "name": "Svaya",
+      "bio": "Svaya is a local Denton artist that is just getting started on the scene and already making some big impacts. She is also a team member over at Graffiti Pasta in Denton as a server and bartender. She was noticed within the company as an artist and quickly started to help bring to life the Graffiti Pasta characters through the PASTA LIFE COMIC STRIPS. Keep a look out for our Sunday comic strip drops and more from Svaya as she continues to accelerate and express herself in the art world.",
+      "website": null,
+      "instagram": null,
+      "noExternalLinks": true,
+      "artworks": [
+        {
+          "id": "svaya-comics",
+          "title": "Pasta Life Comics",
+          "description": "Weekly comic strips featuring the Graffiti Pasta universe. New comics drop every Sunday.",
+          "image": "/images/svaya/_Bucatini/_Bucatini_Hallow Inside_Cover.jpg",
+          "available": true,
+          "internalLink": "#comics",
+          "buttonText": "Read Comics"
+        }
+      ]
     }
   ]
 }
