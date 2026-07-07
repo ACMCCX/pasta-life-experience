@@ -269,18 +269,8 @@ export default function TicTacToePage() {
         playerNum={1}
         onSelect={(char) => {
           setPlayer1Char(char);
-          setGameMode('pvpCharSelect2');
-        }}
-      />
-    );
-  }
-
-  if (gameMode === 'pvpCharSelect2') {
-    return (
-      <CharSelectScreen
-        playerNum={2}
-        onSelect={(char) => {
-          setPlayer2Char(char);
+          // Auto-assign opposite character to Player 2
+          setPlayer2Char(char === 'bowtie' ? 'ravioli' : 'bowtie');
           setGameMode('pvp');
         }}
       />
@@ -472,77 +462,6 @@ export default function TicTacToePage() {
         >
           <div
             style={{
-              background: 'linear-gradient(135deg, rgba(230, 48, 48, 0.3), rgba(255, 107, 26, 0.2))',
-              border: '2px solid #e63030',
-              borderRadius: '8px',
-              padding: '12px',
-              textAlign: 'center',
-              position: 'relative',
-              overflow: 'hidden',
-              boxShadow: '0 0 20px rgba(230, 48, 48, 0.3), inset 0 1px 3px rgba(255,255,255,0.1)',
-            }}
-          >
-            <div style={{ position: 'relative', zIndex: 1 }}>
-              <div style={{ fontSize: '10px', color: '#ff6b1a', fontWeight: 600, letterSpacing: '0.06em' }}>
-                {labels.oLabel}
-              </div>
-              <div style={{ fontSize: '10px', color: '#f5f5f5', fontWeight: 600, letterSpacing: '0.06em', marginTop: '2px' }}>
-                {labels.oName}
-              </div>
-              <div style={{ fontSize: '32px', color: '#e63030', fontWeight: 800, marginTop: '4px' }}>
-                {scores.O}
-              </div>
-            </div>
-            <div
-              style={{
-                position: 'absolute',
-                top: '-10px',
-                right: '-10px',
-                width: '40px',
-                height: '40px',
-                background: 'rgba(230, 48, 48, 0.3)',
-                borderRadius: '50%',
-                zIndex: 0,
-              }}
-            />
-          </div>
-
-          <div
-            style={{
-              background: 'linear-gradient(135deg, rgba(255, 215, 0, 0.3), rgba(255, 107, 26, 0.2))',
-              border: '2px solid #ffd700',
-              borderRadius: '8px',
-              padding: '12px',
-              textAlign: 'center',
-              position: 'relative',
-              overflow: 'hidden',
-              boxShadow: '0 0 20px rgba(255, 215, 0, 0.2), inset 0 1px 3px rgba(255,255,255,0.1)',
-            }}
-          >
-            <div style={{ position: 'relative', zIndex: 1 }}>
-              <div style={{ fontSize: '11px', color: '#ffd700', fontWeight: 600, letterSpacing: '0.08em' }}>
-                DRAWS
-              </div>
-              <div style={{ fontSize: '32px', color: '#ffd700', fontWeight: 800, marginTop: '4px' }}>
-                {scores.draws}
-              </div>
-            </div>
-            <div
-              style={{
-                position: 'absolute',
-                bottom: '-10px',
-                left: '-10px',
-                width: '40px',
-                height: '40px',
-                background: 'rgba(255, 215, 0, 0.2)',
-                borderRadius: '50%',
-                zIndex: 0,
-              }}
-            />
-          </div>
-
-          <div
-            style={{
               background: 'linear-gradient(135deg, rgba(255, 215, 0, 0.3), rgba(255, 107, 26, 0.2))',
               border: '2px solid #ffd700',
               borderRadius: '8px',
@@ -555,12 +474,83 @@ export default function TicTacToePage() {
           >
             <div style={{ position: 'relative', zIndex: 1 }}>
               <div style={{ fontSize: '10px', color: '#ffd700', fontWeight: 600, letterSpacing: '0.06em' }}>
+                {labels.oLabel}
+              </div>
+              <div style={{ fontSize: '10px', color: '#f5f5f5', fontWeight: 600, letterSpacing: '0.06em', marginTop: '2px' }}>
+                {labels.oName}
+              </div>
+              <div style={{ fontSize: '32px', color: '#ffd700', fontWeight: 800, marginTop: '4px' }}>
+                {scores.O}
+              </div>
+            </div>
+            <div
+              style={{
+                position: 'absolute',
+                top: '-10px',
+                right: '-10px',
+                width: '40px',
+                height: '40px',
+                background: 'rgba(255, 215, 0, 0.2)',
+                borderRadius: '50%',
+                zIndex: 0,
+              }}
+            />
+          </div>
+
+          <div
+            style={{
+              background: 'linear-gradient(135deg, rgba(230, 48, 48, 0.3), rgba(255, 107, 26, 0.2))',
+              border: '2px solid #e63030',
+              borderRadius: '8px',
+              padding: '12px',
+              textAlign: 'center',
+              position: 'relative',
+              overflow: 'hidden',
+              boxShadow: '0 0 20px rgba(230, 48, 48, 0.3), inset 0 1px 3px rgba(255,255,255,0.1)',
+            }}
+          >
+            <div style={{ position: 'relative', zIndex: 1 }}>
+              <div style={{ fontSize: '11px', color: '#e63030', fontWeight: 600, letterSpacing: '0.08em' }}>
+                DRAWS
+              </div>
+              <div style={{ fontSize: '32px', color: '#e63030', fontWeight: 800, marginTop: '4px' }}>
+                {scores.draws}
+              </div>
+            </div>
+            <div
+              style={{
+                position: 'absolute',
+                bottom: '-10px',
+                left: '-10px',
+                width: '40px',
+                height: '40px',
+                background: 'rgba(230, 48, 48, 0.3)',
+                borderRadius: '50%',
+                zIndex: 0,
+              }}
+            />
+          </div>
+
+          <div
+            style={{
+              background: 'linear-gradient(135deg, rgba(34, 197, 94, 0.3), rgba(86, 180, 70, 0.2))',
+              border: '2px solid #22c55e',
+              borderRadius: '8px',
+              padding: '12px',
+              textAlign: 'center',
+              position: 'relative',
+              overflow: 'hidden',
+              boxShadow: '0 0 20px rgba(34, 197, 94, 0.3), inset 0 1px 3px rgba(255,255,255,0.1)',
+            }}
+          >
+            <div style={{ position: 'relative', zIndex: 1 }}>
+              <div style={{ fontSize: '10px', color: '#22c55e', fontWeight: 600, letterSpacing: '0.06em' }}>
                 {labels.xLabel}
               </div>
               <div style={{ fontSize: '10px', color: '#f5f5f5', fontWeight: 600, letterSpacing: '0.06em', marginTop: '2px' }}>
                 {labels.xName}
               </div>
-              <div style={{ fontSize: '32px', color: '#ffd700', fontWeight: 800, marginTop: '4px' }}>
+              <div style={{ fontSize: '32px', color: '#22c55e', fontWeight: 800, marginTop: '4px' }}>
                 {scores.X}
               </div>
             </div>
@@ -571,7 +561,7 @@ export default function TicTacToePage() {
                 left: '-10px',
                 width: '40px',
                 height: '40px',
-                background: 'rgba(255, 215, 0, 0.3)',
+                background: 'rgba(34, 197, 94, 0.3)',
                 borderRadius: '50%',
                 zIndex: 0,
               }}
