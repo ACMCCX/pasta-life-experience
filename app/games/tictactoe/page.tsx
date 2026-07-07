@@ -93,7 +93,7 @@ function CharSelectScreen({ playerNum, onSelect }: { playerNum: number; onSelect
             marginBottom: '40px',
           }}
         >
-          {playerNum === 1 ? 'You choose first' : 'Pick the other one'}
+          {playerNum === 1 ? 'Ravioli Pasta goes first' : 'Pick the other one'}
         </p>
 
         <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
