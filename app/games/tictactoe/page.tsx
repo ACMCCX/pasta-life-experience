@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 
 type Player = 'X' | 'O' | null;
-type GameMode = 'menu' | 'charSelect' | 'pvp' | 'pva';
+type GameMode = 'menu' | 'aiCharSelect' | 'pvpCharSelect1' | 'pvpCharSelect2' | 'pvp' | 'pva';
 
 function calculateWinner(board: Player[]): Player {
   const lines = [
@@ -59,9 +59,126 @@ function getAIMove(board: Player[]): number {
   return available[Math.floor(Math.random() * available.length)];
 }
 
+function CharSelectScreen({ playerNum, onSelect }: { playerNum: number; onSelect: (char: 'bowtie' | 'ravioli') => void }) {
+  return (
+    <main
+      style={{
+        minHeight: '100vh',
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        justifyContent: 'center',
+        padding: '20px',
+        background: 'linear-gradient(180deg, #0d0d0d 0%, #1a0a0a 100%)',
+      }}
+    >
+      <div style={{ textAlign: 'center', maxWidth: '400px' }}>
+        <h1
+          style={{
+            fontSize: 'clamp(1.5rem, 6vw, 2.5rem)',
+            fontWeight: 800,
+            color: '#f5f5f5',
+            marginBottom: '12px',
+            fontFamily: 'var(--font-oswald)',
+            letterSpacing: '-0.02em',
+          }}
+        >
+          Player {playerNum}, pick your pasta!
+        </h1>
+        <p
+          style={{
+            fontSize: '14px',
+            color: '#f5f5f5',
+            opacity: 0.6,
+            marginBottom: '40px',
+          }}
+        >
+          {playerNum === 1 ? 'You choose first' : 'Pick the other one'}
+        </p>
+
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+          <button
+            onClick={() => onSelect('bowtie')}
+            style={{
+              padding: '24px',
+              fontSize: '18px',
+              fontWeight: 700,
+              background: 'linear-gradient(135deg, #e63030, #ff6b1a)',
+              color: '#fff',
+              border: 'none',
+              borderRadius: '8px',
+              cursor: 'pointer',
+              fontFamily: 'var(--font-oswald)',
+              letterSpacing: '0.02em',
+              transition: 'transform 0.2s, box-shadow 0.2s',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              gap: '12px',
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.transform = 'scale(1.05)';
+              e.currentTarget.style.boxShadow = '0 8px 20px rgba(230, 48, 48, 0.4)';
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.transform = 'scale(1)';
+              e.currentTarget.style.boxShadow = 'none';
+            }}
+          >
+            <img
+              src="/images/game-assets/bowtie-tic-tac-toe-pop-art.png"
+              alt="Bowtie"
+              style={{ width: '50px', height: '50px' }}
+            />
+            <span>BOWTIE PASTA</span>
+          </button>
+
+          <button
+            onClick={() => onSelect('ravioli')}
+            style={{
+              padding: '24px',
+              fontSize: '18px',
+              fontWeight: 700,
+              background: 'linear-gradient(135deg, #ffd700, #ff6b1a)',
+              color: '#0d0d0d',
+              border: 'none',
+              borderRadius: '8px',
+              cursor: 'pointer',
+              fontFamily: 'var(--font-oswald)',
+              letterSpacing: '0.02em',
+              transition: 'transform 0.2s, box-shadow 0.2s',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              gap: '12px',
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.transform = 'scale(1.05)';
+              e.currentTarget.style.boxShadow = '0 8px 20px rgba(255, 215, 0, 0.4)';
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.transform = 'scale(1)';
+              e.currentTarget.style.boxShadow = 'none';
+            }}
+          >
+            <img
+              src="/images/game-assets/raviolli-tic-tac-toe-pop-art.png"
+              alt="Ravioli"
+              style={{ width: '50px', height: '50px' }}
+            />
+            <span>RAVIOLI PASTA</span>
+          </button>
+        </div>
+      </div>
+    </main>
+  );
+}
+
 export default function TicTacToePage() {
   const [gameMode, setGameMode] = useState<GameMode>('menu');
   const [userChar, setUserChar] = useState<'bowtie' | 'ravioli' | null>(null);
+  const [player1Char, setPlayer1Char] = useState<'bowtie' | 'ravioli' | null>(null);
+  const [player2Char, setPlayer2Char] = useState<'bowtie' | 'ravioli' | null>(null);
   const [board, setBoard] = useState<Player[]>(Array(9).fill(null));
   const [isXNext, setIsXNext] = useState(false); // O goes first
   const [scores, setScores] = useState({ X: 0, O: 0, draws: 0 });
@@ -104,7 +221,14 @@ export default function TicTacToePage() {
     if (gameMode === 'pva' && isXNext) return; // AI is playing
 
     const newBoard = [...board];
-    newBoard[index] = userChar === 'bowtie' ? 'O' : 'X';
+    if (gameMode === 'pva') {
+      // AI mode: user is always O
+      newBoard[index] = 'O';
+    } else {
+      // PvP mode: alternate based on whose turn it is
+      // isXNext = false means O's turn (Player 1 if O, Player 2 if X)
+      newBoard[index] = isXNext ? 'X' : 'O';
+    }
     setBoard(newBoard);
     setIsXNext(!isXNext);
   };
@@ -118,145 +242,48 @@ export default function TicTacToePage() {
   const handleBackToMenu = () => {
     setGameMode('menu');
     setUserChar(null);
+    setPlayer1Char(null);
+    setPlayer2Char(null);
     setBoard(Array(9).fill(null));
     setIsXNext(false);
     setScores({ X: 0, O: 0, draws: 0 });
     setGameOver(false);
   };
 
-  // ── Character Selection Screen ──────────────────────────────────────────
-  if (gameMode === 'charSelect') {
+  // ── Character Selection Screens ────────────────────────────────────────
+  if (gameMode === 'aiCharSelect') {
     return (
-      <main
-        style={{
-          minHeight: '100vh',
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-          justifyContent: 'center',
-          padding: '20px',
-          background: 'linear-gradient(180deg, #0d0d0d 0%, #1a0a0a 100%)',
+      <CharSelectScreen
+        playerNum={1}
+        onSelect={(char) => {
+          setUserChar(char);
+          setGameMode('pva');
         }}
-      >
-        <div style={{ textAlign: 'center', maxWidth: '400px' }}>
-          <h1
-            style={{
-              fontSize: 'clamp(1.5rem, 6vw, 2.5rem)',
-              fontWeight: 800,
-              color: '#f5f5f5',
-              marginBottom: '12px',
-              fontFamily: 'var(--font-oswald)',
-              letterSpacing: '-0.02em',
-            }}
-          >
-            Who do you want to be?
-          </h1>
-          <p
-            style={{
-              fontSize: '14px',
-              color: '#f5f5f5',
-              opacity: 0.6,
-              marginBottom: '40px',
-            }}
-          >
-            Pick your pasta and challenge the AI!
-          </p>
+      />
+    );
+  }
 
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
-            <button
-              onClick={() => {
-                setUserChar('bowtie');
-                setGameMode('pva');
-              }}
-              style={{
-                padding: '24px',
-                fontSize: '18px',
-                fontWeight: 700,
-                background: 'linear-gradient(135deg, #e63030, #ff6b1a)',
-                color: '#fff',
-                border: 'none',
-                borderRadius: '8px',
-                cursor: 'pointer',
-                fontFamily: 'var(--font-oswald)',
-                letterSpacing: '0.02em',
-                transition: 'transform 0.2s, box-shadow 0.2s',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                gap: '12px',
-              }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.transform = 'scale(1.05)';
-                e.currentTarget.style.boxShadow = '0 8px 20px rgba(230, 48, 48, 0.4)';
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.transform = 'scale(1)';
-                e.currentTarget.style.boxShadow = 'none';
-              }}
-            >
-              <img
-                src="/images/game-assets/bowtie-tic-tac-toe-pop-art.png"
-                alt="Bowtie"
-                style={{ width: '50px', height: '50px' }}
-              />
-              <span>BOWTIE PASTA</span>
-            </button>
+  if (gameMode === 'pvpCharSelect1') {
+    return (
+      <CharSelectScreen
+        playerNum={1}
+        onSelect={(char) => {
+          setPlayer1Char(char);
+          setGameMode('pvpCharSelect2');
+        }}
+      />
+    );
+  }
 
-            <button
-              onClick={() => {
-                setUserChar('ravioli');
-                setGameMode('pva');
-              }}
-              style={{
-                padding: '24px',
-                fontSize: '18px',
-                fontWeight: 700,
-                background: 'linear-gradient(135deg, #ffd700, #ff6b1a)',
-                color: '#0d0d0d',
-                border: 'none',
-                borderRadius: '8px',
-                cursor: 'pointer',
-                fontFamily: 'var(--font-oswald)',
-                letterSpacing: '0.02em',
-                transition: 'transform 0.2s, box-shadow 0.2s',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                gap: '12px',
-              }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.transform = 'scale(1.05)';
-                e.currentTarget.style.boxShadow = '0 8px 20px rgba(255, 215, 0, 0.4)';
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.transform = 'scale(1)';
-                e.currentTarget.style.boxShadow = 'none';
-              }}
-            >
-              <img
-                src="/images/game-assets/raviolli-tic-tac-toe-pop-art.png"
-                alt="Ravioli"
-                style={{ width: '50px', height: '50px' }}
-              />
-              <span>RAVIOLI PASTA</span>
-            </button>
-          </div>
-
-          <a
-            href="/#games"
-            style={{
-              display: 'inline-block',
-              marginTop: '40px',
-              color: '#ff6b1a',
-              textDecoration: 'none',
-              fontSize: '14px',
-              fontWeight: 600,
-            }}
-          >
-            ← Back to Games
-          </a>
-        </div>
-      </main>
+  if (gameMode === 'pvpCharSelect2') {
+    return (
+      <CharSelectScreen
+        playerNum={2}
+        onSelect={(char) => {
+          setPlayer2Char(char);
+          setGameMode('pvp');
+        }}
+      />
     );
   }
 
@@ -301,7 +328,7 @@ export default function TicTacToePage() {
 
           <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
             <button
-              onClick={() => setGameMode('charSelect')}
+              onClick={() => setGameMode('aiCharSelect')}
               style={{
                 padding: '16px 32px',
                 fontSize: '16px',
@@ -321,7 +348,7 @@ export default function TicTacToePage() {
               👤 Play vs. AI
             </button>
             <button
-              onClick={() => setGameMode('pvp')}
+              onClick={() => setGameMode('pvpCharSelect1')}
               style={{
                 padding: '16px 32px',
                 fontSize: '16px',
@@ -361,6 +388,30 @@ export default function TicTacToePage() {
   }
 
   // ── Game Screen ────────────────────────────────────────────────────────────
+  // Determine who is X and O for scoring
+  const determinePlayerLabels = () => {
+    if (gameMode === 'pva') {
+      return {
+        oLabel: 'YOU',
+        oName: userChar === 'bowtie' ? 'BOWTIE' : 'RAVIOLI',
+        xLabel: 'AI',
+        xName: userChar === 'bowtie' ? 'RAVIOLI' : 'BOWTIE',
+      };
+    } else {
+      // PvP mode
+      const p1IsO = player1Char === 'bowtie';
+      return {
+        oLabel: 'PLAYER 1',
+        oName: player1Char === 'bowtie' ? 'BOWTIE' : 'RAVIOLI',
+        xLabel: 'PLAYER 2',
+        xName: player2Char === 'bowtie' ? 'BOWTIE' : 'RAVIOLI',
+      };
+    }
+  };
+
+  const labels = determinePlayerLabels();
+  const currentPlayer = gameMode === 'pva' ? (isXNext ? 'AI' : 'You') : (isXNext ? 'Player 2' : 'Player 1');
+
   return (
     <main
       style={{
@@ -393,10 +444,10 @@ export default function TicTacToePage() {
             {winner ? (
               <>
                 <span style={{ fontSize: '24px' }}>
-                  {(gameMode === 'pva' && winner === 'O') || (gameMode === 'pvp' && winner === 'O') ? '🎉' : '🎊'}
+                  {(winner === 'O') ? '🎉' : '🎊'}
                 </span>
                 <br />
-                {(gameMode === 'pva' && winner === 'O') || (gameMode === 'pvp' && winner === 'O') ? 'You Win!' : 'AI Wins!'}
+                {gameMode === 'pva' ? (winner === 'O' ? 'You Win!' : 'AI Wins!') : (winner === 'O' ? 'Player 1 Wins!' : 'Player 2 Wins!')}
               </>
             ) : isDraw ? (
               <>
@@ -405,9 +456,7 @@ export default function TicTacToePage() {
                 It's a Draw!
               </>
             ) : (
-              <>
-                {isXNext ? 'AI' : 'Your'} Turn
-              </>
+              <>{currentPlayer}'s Turn</>
             )}
           </p>
         </div>
@@ -434,8 +483,11 @@ export default function TicTacToePage() {
             }}
           >
             <div style={{ position: 'relative', zIndex: 1 }}>
-              <div style={{ fontSize: '11px', color: '#ff6b1a', fontWeight: 600, letterSpacing: '0.08em' }}>
-                {gameMode === 'pva' ? 'YOU' : 'BOWTIE'}
+              <div style={{ fontSize: '10px', color: '#ff6b1a', fontWeight: 600, letterSpacing: '0.06em' }}>
+                {labels.oLabel}
+              </div>
+              <div style={{ fontSize: '10px', color: '#f5f5f5', fontWeight: 600, letterSpacing: '0.06em', marginTop: '2px' }}>
+                {labels.oName}
               </div>
               <div style={{ fontSize: '32px', color: '#e63030', fontWeight: 800, marginTop: '4px' }}>
                 {scores.O}
@@ -502,8 +554,11 @@ export default function TicTacToePage() {
             }}
           >
             <div style={{ position: 'relative', zIndex: 1 }}>
-              <div style={{ fontSize: '11px', color: '#ffd700', fontWeight: 600, letterSpacing: '0.08em' }}>
-                {gameMode === 'pva' ? 'AI' : 'RAVIOLI'}
+              <div style={{ fontSize: '10px', color: '#ffd700', fontWeight: 600, letterSpacing: '0.06em' }}>
+                {labels.xLabel}
+              </div>
+              <div style={{ fontSize: '10px', color: '#f5f5f5', fontWeight: 600, letterSpacing: '0.06em', marginTop: '2px' }}>
+                {labels.xName}
               </div>
               <div style={{ fontSize: '32px', color: '#ffd700', fontWeight: 800, marginTop: '4px' }}>
                 {scores.X}
