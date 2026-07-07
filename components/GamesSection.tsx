@@ -99,50 +99,49 @@ function PlayableGameCard() {
   return (
     <a
       href="/games/tictactoe"
-      className="relative overflow-hidden rounded-2xl border-2 bg-[#1a1a1a] p-5 flex flex-col gap-3 transition-all duration-300 hover:-translate-y-0.5 cursor-pointer group"
-      style={{ borderColor: "#e63030" }}
+      className="relative overflow-hidden rounded-2xl border-2 bg-[#1a1a1a] p-6 flex flex-col gap-4 transition-all duration-300 hover:-translate-y-1 cursor-pointer group"
+      style={{ borderColor: "#ffd700" }}
     >
       {/* Live badge */}
       <div className="absolute top-3 right-3 flex items-center gap-1">
         <span
           className="text-[10px] font-[family-name:var(--font-oswald)] font-bold uppercase tracking-widest px-2 py-0.5 rounded-full"
-          style={{ background: "rgba(230, 48, 48, 0.3)", color: "#ff6b1a", border: "1px solid #e63030" }}
+          style={{ background: "rgba(255, 215, 0, 0.3)", color: "#ffd700", border: "1px solid #ffd700" }}
         >
           ✨ LIVE
         </span>
       </div>
 
-      {/* Game icon */}
-      <div
-        className="w-14 h-14 rounded-xl flex items-center justify-center text-3xl"
-        style={{ background: "rgba(230, 48, 48, 0.15)", border: "1px solid rgba(230, 48, 48, 0.3)" }}
-      >
-        🎮
+      {/* Logo - Prominently Featured */}
+      <div className="flex justify-center items-center mb-2">
+        <img
+          src="/images/game-assets/tictac-pasta-logo.png"
+          alt="Tic-Tac-Pasta"
+          className="w-full max-w-xs h-auto object-contain"
+          style={{
+            filter: 'drop-shadow(0 4px 12px rgba(255, 215, 0, 0.3))',
+          }}
+        />
       </div>
 
-      {/* Info */}
+      {/* Description */}
       <div>
-        <h3
-          className="font-[family-name:var(--font-oswald)] font-bold uppercase tracking-wide text-[#f5f5f5] text-base leading-tight mb-1 group-hover:text-[#ff6b1a] transition-colors"
-        >
-          Tic-Tac-Toe
-        </h3>
-        <p className="text-[#f5f5f5]/50 text-xs font-[family-name:var(--font-inter)] leading-relaxed">
-          Bowtie vs. Tortellini. Challenge the AI or a friend.
+        <p className="text-[#f5f5f5]/70 text-sm font-[family-name:var(--font-inter)] leading-relaxed text-center mb-4">
+          A classic game with a pasta twist. Bowtie vs. Ravioli. Challenge the AI or play with a friend.
         </p>
       </div>
 
       {/* Play button */}
-      <div
-        className="mt-auto py-2 px-4 rounded-full text-center font-[family-name:var(--font-oswald)] font-semibold uppercase tracking-wider text-xs border border-[#e63030] text-[#ff6b1a] group-hover:bg-[#e63030] group-hover:text-white transition-all"
+      <button
+        className="mt-auto py-3 px-6 rounded-full text-center font-[family-name:var(--font-oswald)] font-bold uppercase tracking-wider text-sm border-2 border-[#ffd700] text-[#ffd700] group-hover:bg-[#ffd700] group-hover:text-[#0d0d0d] transition-all"
       >
         Play Now →
-      </div>
+      </button>
 
       {/* Color glow */}
       <div
-        className="absolute -bottom-6 -left-6 w-24 h-24 rounded-full pointer-events-none opacity-20 group-hover:opacity-30 transition-opacity"
-        style={{ background: "#e63030", filter: "blur(20px)" }}
+        className="absolute -bottom-8 -right-8 w-32 h-32 rounded-full pointer-events-none opacity-20 group-hover:opacity-30 transition-opacity"
+        style={{ background: "#ffd700", filter: "blur(30px)" }}
       />
     </a>
   );
