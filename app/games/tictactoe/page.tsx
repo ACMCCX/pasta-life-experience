@@ -326,7 +326,7 @@ export default function TicTacToePage() {
             }}
           >
             <div style={{ fontSize: '12px', color: '#ffd700', fontWeight: 600 }}>
-              {gameMode === 'pva' ? 'AI' : 'TORTELLINI'}
+              {gameMode === 'pva' ? 'AI' : 'RAVIOLI'}
             </div>
             <div style={{ fontSize: '24px', color: '#ffd700', fontWeight: 800 }}>
               {scores.O}
@@ -341,12 +341,16 @@ export default function TicTacToePage() {
             gridTemplateColumns: 'repeat(3, 1fr)',
             gap: '0px',
             marginBottom: '24px',
-            background: 'linear-gradient(135deg, #0d0d0d 0%, #1a1a1a 100%)',
+            background: 'url(/images/game-assets/board-grid.png) center / cover',
+            backgroundSize: 'cover',
+            backgroundPosition: 'center',
+            backgroundRepeat: 'no-repeat',
             padding: '0px',
             borderRadius: '0px',
-            border: '4px solid #e63030',
-            boxShadow: '0 8px 24px rgba(230, 48, 48, 0.3), inset 0 1px 3px rgba(255,255,255,0.05)',
+            border: '4px solid rgba(230, 48, 48, 0.8)',
+            boxShadow: '0 12px 32px rgba(230, 48, 48, 0.4), inset 0 1px 3px rgba(255,255,255,0.1)',
             position: 'relative',
+            aspectRatio: '1 / 1',
           }}
         >
           {board.map((cell, index) => (
@@ -355,8 +359,8 @@ export default function TicTacToePage() {
               onClick={() => handleCellClick(index)}
               style={{
                 aspectRatio: '1 / 1',
-                background: 'rgba(255,255,255,0.02)',
-                border: '3px solid #e63030',
+                background: 'rgba(0, 0, 0, 0.2)',
+                border: '1px solid rgba(230, 48, 48, 0.4)',
                 borderRadius: '0px',
                 cursor: cell || gameOver || (gameMode === 'pva' && !isXNext) ? 'default' : 'pointer',
                 display: 'flex',
@@ -368,13 +372,13 @@ export default function TicTacToePage() {
               }}
               onMouseEnter={(e) => {
                 if (!cell && !gameOver && !(gameMode === 'pva' && !isXNext)) {
-                  e.currentTarget.style.background = 'rgba(255, 107, 26, 0.1)';
-                  e.currentTarget.style.boxShadow = 'inset 0 0 10px rgba(255, 107, 26, 0.3)';
+                  e.currentTarget.style.background = 'rgba(255, 107, 26, 0.25)';
+                  e.currentTarget.style.borderColor = 'rgba(255, 107, 26, 0.8)';
                 }
               }}
               onMouseLeave={(e) => {
-                e.currentTarget.style.background = 'rgba(255,255,255,0.02)';
-                e.currentTarget.style.boxShadow = 'none';
+                e.currentTarget.style.background = 'rgba(0, 0, 0, 0.2)';
+                e.currentTarget.style.borderColor = 'rgba(230, 48, 48, 0.4)';
               }}
             >
               {cell === 'X' && (
