@@ -190,17 +190,20 @@ export default function TicTacToePage() {
 
   // AI move
   useEffect(() => {
-    if (gameMode === 'pva' && isXNext && !gameOver && !isDraw && !winner) {
-      const timer = setTimeout(() => {
-        const aiMoveIndex = getAIMove(board);
-        const newBoard = [...board];
-        newBoard[aiMoveIndex] = 'X';
-        setBoard(newBoard);
-        setIsXNext(false);
-      }, 600);
-      return () => clearTimeout(timer);
+    if (gameMode === 'pva' && !gameOver && !isDraw && !winner) {
+      const aiShouldPlay = userPlaysX ? !isXNext : isXNext;
+      if (aiShouldPlay) {
+        const timer = setTimeout(() => {
+          const aiMoveIndex = getAIMove(board);
+          const newBoard = [...board];
+          newBoard[aiMoveIndex] = userPlaysX ? 'O' : 'X';
+          setBoard(newBoard);
+          setIsXNext(!isXNext);
+        }, 600);
+        return () => clearTimeout(timer);
+      }
     }
-  }, [board, isXNext, gameMode, gameOver, isDraw, winner]);
+  }, [board, isXNext, gameMode, gameOver, isDraw, winner, userPlaysX]);
 
   // Check for game end
   useEffect(() => {
@@ -216,17 +219,18 @@ export default function TicTacToePage() {
     }
   }, [winner, isDraw]);
 
+  const userPlaysX = userChar === 'bowtie'; // Bowtie is X, Ravioli is O
+
   const handleCellClick = (index: number) => {
     if (board[index] || gameOver) return;
-    if (gameMode === 'pva' && isXNext) return; // AI is playing
+    if (gameMode === 'pva' && (userPlaysX ? isXNext : !isXNext)) return; // AI is playing
 
     const newBoard = [...board];
     if (gameMode === 'pva') {
-      // AI mode: user is always O
-      newBoard[index] = 'O';
+      // AI mode: user plays piece based on their character choice
+      newBoard[index] = userPlaysX ? 'X' : 'O';
     } else {
       // PvP mode: alternate based on whose turn it is
-      // isXNext = false means O's turn (Player 1 if O, Player 2 if X)
       newBoard[index] = isXNext ? 'X' : 'O';
     }
     setBoard(newBoard);
@@ -381,26 +385,39 @@ export default function TicTacToePage() {
   // Determine who is X and O for scoring
   const determinePlayerLabels = () => {
     if (gameMode === 'pva') {
-      return {
-        oLabel: 'YOU',
-        oName: userChar === 'bowtie' ? 'BOWTIE' : 'RAVIOLI',
-        xLabel: 'AI',
-        xName: userChar === 'bowtie' ? 'RAVIOLI' : 'BOWTIE',
-      };
+      // In AI mode: X = Bowtie, O = Ravioli (always)
+      // If user picked Bowtie: user is X, AI is O
+      // If user picked Ravioli: user is O, AI is X
+      if (userChar === 'bowtie') {
+        return {
+          oLabel: 'AI',
+          oName: 'RAVIOLI',
+          xLabel: 'YOU',
+          xName: 'BOWTIE',
+        };
+      } else {
+        return {
+          oLabel: 'YOU',
+          oName: 'RAVIOLI',
+          xLabel: 'AI',
+          xName: 'BOWTIE',
+        };
+      }
     } else {
-      // PvP mode
-      const p1IsO = player1Char === 'bowtie';
+      // PvP mode: O = Ravioli (always), X = Bowtie (always)
       return {
-        oLabel: 'PLAYER 1',
-        oName: player1Char === 'bowtie' ? 'BOWTIE' : 'RAVIOLI',
-        xLabel: 'PLAYER 2',
-        xName: player2Char === 'bowtie' ? 'BOWTIE' : 'RAVIOLI',
+        oLabel: player1Char === 'ravioli' ? 'PLAYER 1' : 'PLAYER 2',
+        oName: 'RAVIOLI',
+        xLabel: player1Char === 'bowtie' ? 'PLAYER 1' : 'PLAYER 2',
+        xName: 'BOWTIE',
       };
     }
   };
 
   const labels = determinePlayerLabels();
-  const currentPlayer = gameMode === 'pva' ? (isXNext ? 'AI' : 'You') : (isXNext ? 'Player 2' : 'Player 1');
+  const currentPlayer = gameMode === 'pva' 
+    ? (userPlaysX ? (isXNext ? 'You' : 'AI') : (isXNext ? 'AI' : 'You'))
+    : (isXNext ? (player1Char === 'bowtie' ? 'Player 1' : 'Player 2') : (player1Char === 'ravioli' ? 'Player 1' : 'Player 2'));
 
   return (
     <main
@@ -434,10 +451,13 @@ export default function TicTacToePage() {
             {winner ? (
               <>
                 <span style={{ fontSize: '24px' }}>
-                  {(winner === 'O') ? '🎉' : '🎊'}
+                  {(gameMode === 'pva' && userPlaysX ? winner === 'X' : winner === 'O') ? '🎉' : '🎊'}
                 </span>
                 <br />
-                {gameMode === 'pva' ? (winner === 'O' ? 'You Win!' : 'AI Wins!') : (winner === 'O' ? 'Player 1 Wins!' : 'Player 2 Wins!')}
+                {gameMode === 'pva' 
+                  ? (userPlaysX ? (winner === 'X' ? 'You Win!' : 'AI Wins!') : (winner === 'O' ? 'You Win!' : 'AI Wins!'))
+                  : (winner === 'O' ? (player1Char === 'ravioli' ? 'Player 1 Wins!' : 'Player 2 Wins!') : (player1Char === 'bowtie' ? 'Player 1 Wins!' : 'Player 2 Wins!'))
+                }
               </>
             ) : isDraw ? (
               <>
