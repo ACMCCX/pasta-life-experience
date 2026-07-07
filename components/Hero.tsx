@@ -57,7 +57,7 @@ export default function Hero() {
           className="text-[#f5f5f5]/70 font-[family-name:var(--font-inter)] font-medium mb-10 leading-relaxed"
           style={{ fontSize: "clamp(0.9rem, 3vw, 1.1rem)" }}
         >
-          The full Graffiti Pasta universe music, art, merch &amp; more
+          A full Pasta-verse with music, art, merch &amp; more
         </p>
 
         {/* Navigation pills grid */}

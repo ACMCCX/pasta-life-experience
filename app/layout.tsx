@@ -17,7 +17,7 @@ const inter = Inter({
 export const metadata: Metadata = {
   title: "Pasta Life Experience | Graffiti Pasta",
   description:
-    "The full Graffiti Pasta universe — music, art, merch & more.",
+    "A full Pasta-verse with music, art, merch & more.",
   openGraph: {
     title: "Pasta Life Experience",
     description: "Music. Art. Merch. Rewards. Games. All things Graffiti Pasta.",
@@ -28,7 +28,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "Pasta Life Experience | Graffiti Pasta",
-    description: "The full Graffiti Pasta universe — music, art, merch & more.",
+    description: "A full Pasta-verse with music, art, merch & more.",
   },
   robots: {
     index: true,
