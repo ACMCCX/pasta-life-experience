@@ -11,29 +11,9 @@
       "instagram": null,
       "artworks": [
         {
-          "id": "gabriel-1",
-          "title": "DENTON Rising",
-          "price": 300,
-          "medium": "Acrylic on Canvas",
-          "dimensions": "30\" x 30\"",
-          "image": "/images/gabriel/denton-rising.jpg",
-          "available": true,
-          "stripeProductId": "prod_UpdyPEHmVBWFJT"
-        },
-        {
-          "id": "gabriel-2",
-          "title": "Cosmic Consciousness",
-          "price": 300,
-          "medium": "Acrylic on Canvas",
-          "dimensions": "30\" x 30\"",
-          "image": "/images/gabriel/cosmic-consciousness.jpg",
-          "available": true,
-          "stripeProductId": "prod_Upe0LdTwisZ7cZ"
-        },
-        {
           "id": "gabriel-3",
-          "title": "Ethereal Dreams",
-          "price": 300,
+          "title": "Moby Dick",
+          "price": 2000,
           "medium": "Acrylic on Canvas",
           "dimensions": "30\" x 30\"",
           "image": "/images/gabriel/ethereal-dreams.jpg",
@@ -42,8 +22,8 @@
         },
         {
           "id": "gabriel-4",
-          "title": "Red Velocity",
-          "price": 300,
+          "title": "Monkey Dreams",
+          "price": 2000,
           "medium": "Acrylic on Canvas",
           "dimensions": "30\" x 30\"",
           "image": "/images/gabriel/red-velocity.jpg",
