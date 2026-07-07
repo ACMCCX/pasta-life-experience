@@ -113,13 +113,14 @@ function PlayableGameCard() {
       </div>
 
       {/* Logo - Prominently Featured */}
-      <div className="flex justify-center items-center mb-2">
+      <div className="flex justify-center items-center my-4">
         <img
           src="/images/game-assets/tictac-pasta-logo.png"
           alt="Tic-Tac-Pasta"
-          className="w-full max-w-xs h-auto object-contain"
+          className="w-full max-w-2xl h-auto object-contain"
           style={{
-            filter: 'drop-shadow(0 4px 12px rgba(255, 215, 0, 0.3))',
+            filter: 'drop-shadow(0 6px 16px rgba(255, 215, 0, 0.4))',
+            maxHeight: '280px',
           }}
         />
       </div>
