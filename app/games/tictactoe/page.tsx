@@ -223,7 +223,7 @@ export default function TicTacToePage() {
 
   const handleCellClick = (index: number) => {
     if (board[index] || gameOver) return;
-    if (gameMode === 'pva' && (userPlaysX ? isXNext : !isXNext)) return; // AI is playing
+    if (gameMode === 'pva' && (userPlaysX ? !isXNext : isXNext)) return; // AI is playing
 
     const newBoard = [...board];
     if (gameMode === 'pva') {
