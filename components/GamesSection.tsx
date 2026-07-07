@@ -95,6 +95,59 @@ function GameCard({ game }: { game: Game }) {
   );
 }
 
+function PlayableGameCard() {
+  return (
+    <a
+      href="/games/tictactoe"
+      className="relative overflow-hidden rounded-2xl border-2 bg-[#1a1a1a] p-5 flex flex-col gap-3 transition-all duration-300 hover:-translate-y-0.5 cursor-pointer group"
+      style={{ borderColor: "#e63030" }}
+    >
+      {/* Live badge */}
+      <div className="absolute top-3 right-3 flex items-center gap-1">
+        <span
+          className="text-[10px] font-[family-name:var(--font-oswald)] font-bold uppercase tracking-widest px-2 py-0.5 rounded-full"
+          style={{ background: "rgba(230, 48, 48, 0.3)", color: "#ff6b1a", border: "1px solid #e63030" }}
+        >
+          ✨ LIVE
+        </span>
+      </div>
+
+      {/* Game icon */}
+      <div
+        className="w-14 h-14 rounded-xl flex items-center justify-center text-3xl"
+        style={{ background: "rgba(230, 48, 48, 0.15)", border: "1px solid rgba(230, 48, 48, 0.3)" }}
+      >
+        🎮
+      </div>
+
+      {/* Info */}
+      <div>
+        <h3
+          className="font-[family-name:var(--font-oswald)] font-bold uppercase tracking-wide text-[#f5f5f5] text-base leading-tight mb-1 group-hover:text-[#ff6b1a] transition-colors"
+        >
+          Tic-Tac-Toe
+        </h3>
+        <p className="text-[#f5f5f5]/50 text-xs font-[family-name:var(--font-inter)] leading-relaxed">
+          Bowtie vs. Tortellini. Challenge the AI or a friend.
+        </p>
+      </div>
+
+      {/* Play button */}
+      <div
+        className="mt-auto py-2 px-4 rounded-full text-center font-[family-name:var(--font-oswald)] font-semibold uppercase tracking-wider text-xs border border-[#e63030] text-[#ff6b1a] group-hover:bg-[#e63030] group-hover:text-white transition-all"
+      >
+        Play Now →
+      </div>
+
+      {/* Color glow */}
+      <div
+        className="absolute -bottom-6 -left-6 w-24 h-24 rounded-full pointer-events-none opacity-20 group-hover:opacity-30 transition-opacity"
+        style={{ background: "#e63030", filter: "blur(20px)" }}
+      />
+    </a>
+  );
+}
+
 export default function GamesSection() {
   return (
     <section id="games" className="gp-section" style={{ backgroundColor: "#0f0f0f" }}>
@@ -124,11 +177,24 @@ export default function GamesSection() {
           </p>
         </div>
 
+        {/* Tic-Tac-Toe Game — Featured */}
+        <div className="mb-8">
+          <p className="text-[#f5f5f5]/40 text-xs font-[family-name:var(--font-oswald)] uppercase tracking-widest mb-3">
+            🄙 NOW PLAYING
+          </p>
+          <PlayableGameCard />
+        </div>
+
         {/* Game cards grid */}
-        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-          {upcomingGames.map((game) => (
-            <GameCard key={game.title} game={game} />
-          ))}
+        <div>
+          <p className="text-[#f5f5f5]/40 text-xs font-[family-name:var(--font-oswald)] uppercase tracking-widest mb-3">
+            🔬 COMING SOON
+          </p>
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+            {upcomingGames.map((game) => (
+              <GameCard key={game.title} game={game} />
+            ))}
+          </div>
         </div>
 
         {/* Coming soon note */}
