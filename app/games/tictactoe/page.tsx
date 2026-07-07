@@ -184,9 +184,11 @@ export default function TicTacToePage() {
   const [scores, setScores] = useState({ X: 0, O: 0, draws: 0 });
   const [gameOver, setGameOver] = useState(false);
 
+  // Derived state
   const winner = calculateWinner(board);
   const isBoardFull = board.every((cell) => cell !== null);
   const isDraw = !winner && isBoardFull;
+  const userPlaysX = userChar === 'bowtie'; // Bowtie is X, Ravioli is O
 
   // AI move
   useEffect(() => {
@@ -218,8 +220,6 @@ export default function TicTacToePage() {
       }
     }
   }, [winner, isDraw]);
-
-  const userPlaysX = userChar === 'bowtie'; // Bowtie is X, Ravioli is O
 
   const handleCellClick = (index: number) => {
     if (board[index] || gameOver) return;
