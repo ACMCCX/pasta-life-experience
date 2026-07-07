@@ -8,13 +8,21 @@ const stripe = new Stripe(process.env.STRIPE_SECRET_KEY || "", {
 export async function POST(req: NextRequest) {
   try {
     console.log("[Checkout API] Request received");
-    const { productId, quantity = 1, title } = await req.json();
-    console.log("[Checkout API] Parsed body:", { productId, quantity, title });
+    const { productId, quantity = 1, title, price } = await req.json();
+    console.log("[Checkout API] Parsed body:", { productId, quantity, title, price });
 
     if (!productId) {
       console.error("[Checkout API] Missing productId");
       return NextResponse.json(
         { error: "Product ID is required" },
+        { status: 400 }
+      );
+    }
+
+    if (!price || price <= 0) {
+      console.error("[Checkout API] Invalid price:", price);
+      return NextResponse.json(
+        { error: "Valid price is required" },
         { status: 400 }
       );
     }
@@ -41,7 +49,7 @@ export async function POST(req: NextRequest) {
                 productId,
               },
             },
-            unit_amount: 30000, // $300.00 in cents
+            unit_amount: Math.round(price * 100), // Convert dollars to cents
           },
           quantity,
         },

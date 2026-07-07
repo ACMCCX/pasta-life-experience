@@ -49,6 +49,7 @@ function ArtworkCard({ artwork }: { artwork: Artwork }) {
           productId: artwork.stripeProductId,
           quantity: 1,
           title: artwork.title,
+          price: artwork.price,
         }),
       });
 
@@ -81,6 +82,7 @@ function ArtworkCard({ artwork }: { artwork: Artwork }) {
           <img
             src={artwork.image}
             alt={artwork.title}
+            loading="lazy"
             style={{
               width: "100%",
               height: "100%",
