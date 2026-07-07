@@ -1,10 +1,9 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import Image from 'next/image';
 
 type Player = 'X' | 'O' | null;
-type GameMode = 'menu' | 'pvp' | 'pva';
+type GameMode = 'menu' | 'charSelect' | 'pvp' | 'pva';
 
 function calculateWinner(board: Player[]): Player {
   const lines = [
@@ -31,8 +30,8 @@ function getAIMove(board: Player[]): number {
   for (let i = 0; i < 9; i++) {
     if (board[i] === null) {
       const testBoard = [...board];
-      testBoard[i] = 'O';
-      if (calculateWinner(testBoard) === 'O') return i;
+      testBoard[i] = 'X';
+      if (calculateWinner(testBoard) === 'X') return i;
     }
   }
 
@@ -40,8 +39,8 @@ function getAIMove(board: Player[]): number {
   for (let i = 0; i < 9; i++) {
     if (board[i] === null) {
       const testBoard = [...board];
-      testBoard[i] = 'X';
-      if (calculateWinner(testBoard) === 'X') return i;
+      testBoard[i] = 'O';
+      if (calculateWinner(testBoard) === 'O') return i;
     }
   }
 
@@ -62,8 +61,9 @@ function getAIMove(board: Player[]): number {
 
 export default function TicTacToePage() {
   const [gameMode, setGameMode] = useState<GameMode>('menu');
+  const [userChar, setUserChar] = useState<'bowtie' | 'ravioli' | null>(null);
   const [board, setBoard] = useState<Player[]>(Array(9).fill(null));
-  const [isXNext, setIsXNext] = useState(true);
+  const [isXNext, setIsXNext] = useState(false); // O goes first
   const [scores, setScores] = useState({ X: 0, O: 0, draws: 0 });
   const [gameOver, setGameOver] = useState(false);
 
@@ -73,13 +73,13 @@ export default function TicTacToePage() {
 
   // AI move
   useEffect(() => {
-    if (gameMode === 'pva' && !isXNext && !gameOver && !isDraw && !winner) {
+    if (gameMode === 'pva' && isXNext && !gameOver && !isDraw && !winner) {
       const timer = setTimeout(() => {
         const aiMoveIndex = getAIMove(board);
         const newBoard = [...board];
-        newBoard[aiMoveIndex] = 'O';
+        newBoard[aiMoveIndex] = 'X';
         setBoard(newBoard);
-        setIsXNext(true);
+        setIsXNext(false);
       }, 600);
       return () => clearTimeout(timer);
     }
@@ -101,29 +101,166 @@ export default function TicTacToePage() {
 
   const handleCellClick = (index: number) => {
     if (board[index] || gameOver) return;
-    if (gameMode === 'pva' && !isXNext) return; // AI is playing
+    if (gameMode === 'pva' && isXNext) return; // AI is playing
 
     const newBoard = [...board];
-    newBoard[index] = isXNext ? 'X' : 'O';
+    newBoard[index] = userChar === 'bowtie' ? 'O' : 'X';
     setBoard(newBoard);
     setIsXNext(!isXNext);
   };
 
   const handleRestart = () => {
     setBoard(Array(9).fill(null));
-    setIsXNext(true);
+    setIsXNext(false); // O always goes first
     setGameOver(false);
   };
 
   const handleBackToMenu = () => {
     setGameMode('menu');
+    setUserChar(null);
     setBoard(Array(9).fill(null));
-    setIsXNext(true);
+    setIsXNext(false);
     setScores({ X: 0, O: 0, draws: 0 });
     setGameOver(false);
   };
 
-  // Menu screen
+  // ── Character Selection Screen ──────────────────────────────────────────
+  if (gameMode === 'charSelect') {
+    return (
+      <main
+        style={{
+          minHeight: '100vh',
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          justifyContent: 'center',
+          padding: '20px',
+          background: 'linear-gradient(180deg, #0d0d0d 0%, #1a0a0a 100%)',
+        }}
+      >
+        <div style={{ textAlign: 'center', maxWidth: '400px' }}>
+          <h1
+            style={{
+              fontSize: 'clamp(1.5rem, 6vw, 2.5rem)',
+              fontWeight: 800,
+              color: '#f5f5f5',
+              marginBottom: '12px',
+              fontFamily: 'var(--font-oswald)',
+              letterSpacing: '-0.02em',
+            }}
+          >
+            Who do you want to be?
+          </h1>
+          <p
+            style={{
+              fontSize: '14px',
+              color: '#f5f5f5',
+              opacity: 0.6,
+              marginBottom: '40px',
+            }}
+          >
+            Pick your pasta and challenge the AI!
+          </p>
+
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+            <button
+              onClick={() => {
+                setUserChar('bowtie');
+                setGameMode('pva');
+              }}
+              style={{
+                padding: '24px',
+                fontSize: '18px',
+                fontWeight: 700,
+                background: 'linear-gradient(135deg, #e63030, #ff6b1a)',
+                color: '#fff',
+                border: 'none',
+                borderRadius: '8px',
+                cursor: 'pointer',
+                fontFamily: 'var(--font-oswald)',
+                letterSpacing: '0.02em',
+                transition: 'transform 0.2s, box-shadow 0.2s',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                gap: '12px',
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.transform = 'scale(1.05)';
+                e.currentTarget.style.boxShadow = '0 8px 20px rgba(230, 48, 48, 0.4)';
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.transform = 'scale(1)';
+                e.currentTarget.style.boxShadow = 'none';
+              }}
+            >
+              <img
+                src="/images/game-assets/bowtie-tic-tac-toe-pop-art.png"
+                alt="Bowtie"
+                style={{ width: '50px', height: '50px' }}
+              />
+              <span>BOWTIE PASTA</span>
+            </button>
+
+            <button
+              onClick={() => {
+                setUserChar('ravioli');
+                setGameMode('pva');
+              }}
+              style={{
+                padding: '24px',
+                fontSize: '18px',
+                fontWeight: 700,
+                background: 'linear-gradient(135deg, #ffd700, #ff6b1a)',
+                color: '#0d0d0d',
+                border: 'none',
+                borderRadius: '8px',
+                cursor: 'pointer',
+                fontFamily: 'var(--font-oswald)',
+                letterSpacing: '0.02em',
+                transition: 'transform 0.2s, box-shadow 0.2s',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                gap: '12px',
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.transform = 'scale(1.05)';
+                e.currentTarget.style.boxShadow = '0 8px 20px rgba(255, 215, 0, 0.4)';
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.transform = 'scale(1)';
+                e.currentTarget.style.boxShadow = 'none';
+              }}
+            >
+              <img
+                src="/images/game-assets/raviolli-tic-tac-toe-pop-art.png"
+                alt="Ravioli"
+                style={{ width: '50px', height: '50px' }}
+              />
+              <span>RAVIOLI PASTA</span>
+            </button>
+          </div>
+
+          <a
+            href="/#games"
+            style={{
+              display: 'inline-block',
+              marginTop: '40px',
+              color: '#ff6b1a',
+              textDecoration: 'none',
+              fontSize: '14px',
+              fontWeight: 600,
+            }}
+          >
+            ← Back to Games
+          </a>
+        </div>
+      </main>
+    );
+  }
+
+  // ── Main Menu ──────────────────────────────────────────────────────────────
   if (gameMode === 'menu') {
     return (
       <main
@@ -135,7 +272,6 @@ export default function TicTacToePage() {
           justifyContent: 'center',
           padding: '20px',
           background: 'linear-gradient(180deg, #0d0d0d 0%, #1a0a0a 100%)',
-          backgroundImage: 'radial-gradient(circle at 20% 50%, rgba(230, 48, 48, 0.1) 0%, transparent 50%)',
         }}
       >
         <div style={{ textAlign: 'center', maxWidth: '400px' }}>
@@ -160,12 +296,12 @@ export default function TicTacToePage() {
               lineHeight: 1.5,
             }}
           >
-            Bowtie vs. Tortellini. Who will win?
+            Bowtie vs. Ravioli. Who will win?
           </p>
 
           <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
             <button
-              onClick={() => setGameMode('pva')}
+              onClick={() => setGameMode('charSelect')}
               style={{
                 padding: '16px 32px',
                 fontSize: '16px',
@@ -224,7 +360,7 @@ export default function TicTacToePage() {
     );
   }
 
-  // Game screen
+  // ── Game Screen ────────────────────────────────────────────────────────────
   return (
     <main
       style={{
@@ -235,6 +371,7 @@ export default function TicTacToePage() {
         justifyContent: 'center',
         padding: '20px',
         background: 'linear-gradient(180deg, #0d0d0d 0%, #1a0a0a 100%)',
+        backgroundImage: 'radial-gradient(circle at 20% 50%, rgba(230, 48, 48, 0.1) 0%, transparent 50%)',
         fontFamily: 'var(--font-oswald)',
       }}
     >
@@ -250,16 +387,16 @@ export default function TicTacToePage() {
               letterSpacing: '-0.02em',
             }}
           >
-            {gameMode === 'pva' ? '🤖 vs. AI' : '👥 Player vs. Player'}
+            {gameMode === 'pva' ? '👤 YOU vs AI' : '👥 Player vs. Player'}
           </h1>
           <p style={{ color: '#f5f5f5', opacity: 0.6, fontSize: '14px' }}>
             {winner ? (
               <>
                 <span style={{ fontSize: '24px' }}>
-                  {winner === 'X' ? '🎉' : '🎊'}
+                  {(gameMode === 'pva' && winner === 'O') || (gameMode === 'pvp' && winner === 'O') ? '🎉' : '🎊'}
                 </span>
                 <br />
-                {winner === 'X' ? 'Bowtie Wins!' : 'Tortellini Wins!'}
+                {(gameMode === 'pva' && winner === 'O') || (gameMode === 'pvp' && winner === 'O') ? 'You Win!' : 'AI Wins!'}
               </>
             ) : isDraw ? (
               <>
@@ -269,13 +406,13 @@ export default function TicTacToePage() {
               </>
             ) : (
               <>
-                {isXNext ? 'Bowtie' : 'Tortellini'}'s Turn
+                {isXNext ? 'AI' : 'Your'} Turn
               </>
             )}
           </p>
         </div>
 
-        {/* Scoreboard (always visible) */}
+        {/* Scoreboard */}
         <div
           style={{
             display: 'grid',
@@ -286,51 +423,104 @@ export default function TicTacToePage() {
         >
           <div
             style={{
-              background: 'rgba(230, 48, 48, 0.2)',
-              border: '1px solid #e63030',
+              background: 'linear-gradient(135deg, rgba(230, 48, 48, 0.3), rgba(255, 107, 26, 0.2))',
+              border: '2px solid #e63030',
               borderRadius: '8px',
               padding: '12px',
               textAlign: 'center',
+              position: 'relative',
+              overflow: 'hidden',
+              boxShadow: '0 0 20px rgba(230, 48, 48, 0.3), inset 0 1px 3px rgba(255,255,255,0.1)',
             }}
           >
-            <div style={{ fontSize: '12px', color: '#ff6b1a', fontWeight: 600 }}>
-              BOWTIE
+            <div style={{ position: 'relative', zIndex: 1 }}>
+              <div style={{ fontSize: '11px', color: '#ff6b1a', fontWeight: 600, letterSpacing: '0.08em' }}>
+                {gameMode === 'pva' ? 'YOU' : 'BOWTIE'}
+              </div>
+              <div style={{ fontSize: '32px', color: '#e63030', fontWeight: 800, marginTop: '4px' }}>
+                {scores.O}
+              </div>
             </div>
-            <div style={{ fontSize: '24px', color: '#e63030', fontWeight: 800 }}>
-              {scores.X}
-            </div>
+            <div
+              style={{
+                position: 'absolute',
+                top: '-10px',
+                right: '-10px',
+                width: '40px',
+                height: '40px',
+                background: 'rgba(230, 48, 48, 0.3)',
+                borderRadius: '50%',
+                zIndex: 0,
+              }}
+            />
           </div>
+
           <div
             style={{
-              background: 'rgba(255, 215, 0, 0.2)',
-              border: '1px solid #ffd700',
+              background: 'linear-gradient(135deg, rgba(255, 215, 0, 0.3), rgba(255, 107, 26, 0.2))',
+              border: '2px solid #ffd700',
               borderRadius: '8px',
               padding: '12px',
               textAlign: 'center',
+              position: 'relative',
+              overflow: 'hidden',
+              boxShadow: '0 0 20px rgba(255, 215, 0, 0.2), inset 0 1px 3px rgba(255,255,255,0.1)',
             }}
           >
-            <div style={{ fontSize: '12px', color: '#ffd700', fontWeight: 600 }}>
-              DRAWS
+            <div style={{ position: 'relative', zIndex: 1 }}>
+              <div style={{ fontSize: '11px', color: '#ffd700', fontWeight: 600, letterSpacing: '0.08em' }}>
+                DRAWS
+              </div>
+              <div style={{ fontSize: '32px', color: '#ffd700', fontWeight: 800, marginTop: '4px' }}>
+                {scores.draws}
+              </div>
             </div>
-            <div style={{ fontSize: '24px', color: '#ffd700', fontWeight: 800 }}>
-              {scores.draws}
-            </div>
+            <div
+              style={{
+                position: 'absolute',
+                bottom: '-10px',
+                left: '-10px',
+                width: '40px',
+                height: '40px',
+                background: 'rgba(255, 215, 0, 0.2)',
+                borderRadius: '50%',
+                zIndex: 0,
+              }}
+            />
           </div>
+
           <div
             style={{
-              background: 'rgba(255, 215, 0, 0.2)',
-              border: '1px solid #ffd700',
+              background: 'linear-gradient(135deg, rgba(255, 215, 0, 0.3), rgba(255, 107, 26, 0.2))',
+              border: '2px solid #ffd700',
               borderRadius: '8px',
               padding: '12px',
               textAlign: 'center',
+              position: 'relative',
+              overflow: 'hidden',
+              boxShadow: '0 0 20px rgba(255, 215, 0, 0.2), inset 0 1px 3px rgba(255,255,255,0.1)',
             }}
           >
-            <div style={{ fontSize: '12px', color: '#ffd700', fontWeight: 600 }}>
-              {gameMode === 'pva' ? 'AI' : 'RAVIOLI'}
+            <div style={{ position: 'relative', zIndex: 1 }}>
+              <div style={{ fontSize: '11px', color: '#ffd700', fontWeight: 600, letterSpacing: '0.08em' }}>
+                {gameMode === 'pva' ? 'AI' : 'RAVIOLI'}
+              </div>
+              <div style={{ fontSize: '32px', color: '#ffd700', fontWeight: 800, marginTop: '4px' }}>
+                {scores.X}
+              </div>
             </div>
-            <div style={{ fontSize: '24px', color: '#ffd700', fontWeight: 800 }}>
-              {scores.O}
-            </div>
+            <div
+              style={{
+                position: 'absolute',
+                top: '-10px',
+                left: '-10px',
+                width: '40px',
+                height: '40px',
+                background: 'rgba(255, 215, 0, 0.3)',
+                borderRadius: '50%',
+                zIndex: 0,
+              }}
+            />
           </div>
         </div>
 
@@ -359,10 +549,10 @@ export default function TicTacToePage() {
               onClick={() => handleCellClick(index)}
               style={{
                 aspectRatio: '1 / 1',
-                background: 'rgba(0, 0, 0, 0.2)',
-                border: '1px solid rgba(230, 48, 48, 0.4)',
+                background: 'rgba(0, 0, 0, 0.1)',
+                border: 'none',
                 borderRadius: '0px',
-                cursor: cell || gameOver || (gameMode === 'pva' && !isXNext) ? 'default' : 'pointer',
+                cursor: cell || gameOver || (gameMode === 'pva' && isXNext) ? 'default' : 'pointer',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
@@ -371,14 +561,12 @@ export default function TicTacToePage() {
                 overflow: 'hidden',
               }}
               onMouseEnter={(e) => {
-                if (!cell && !gameOver && !(gameMode === 'pva' && !isXNext)) {
-                  e.currentTarget.style.background = 'rgba(255, 107, 26, 0.25)';
-                  e.currentTarget.style.borderColor = 'rgba(255, 107, 26, 0.8)';
+                if (!cell && !gameOver && !(gameMode === 'pva' && isXNext)) {
+                  e.currentTarget.style.background = 'rgba(255, 107, 26, 0.2)';
                 }
               }}
               onMouseLeave={(e) => {
-                e.currentTarget.style.background = 'rgba(0, 0, 0, 0.2)';
-                e.currentTarget.style.borderColor = 'rgba(230, 48, 48, 0.4)';
+                e.currentTarget.style.background = 'rgba(0, 0, 0, 0.1)';
               }}
             >
               {cell === 'X' && (
