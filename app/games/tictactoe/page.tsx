@@ -1,29 +1,10 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import Image from 'next/image';
 
 type Player = 'X' | 'O' | null;
 type GameMode = 'menu' | 'pvp' | 'pva';
-
-const BOWTIE_SVG = (
-  <svg viewBox="0 0 100 100" width="50" height="50" className="w-12 h-12">
-    <circle cx="35" cy="50" r="18" fill="#e63030" />
-    <rect x="53" y="40" width="12" height="20" fill="#ff6b1a" />
-    <circle cx="65" cy="50" r="18" fill="#e63030" />
-  </svg>
-);
-
-const TORTELLINI_SVG = (
-  <svg viewBox="0 0 100 100" width="50" height="50" className="w-12 h-12">
-    <circle cx="50" cy="50" r="25" fill="#ffd700" />
-    <circle cx="50" cy="50" r="20" fill="#f5f5f5" />
-    <path
-      d="M 50 30 Q 60 50 50 70 Q 40 50 50 30"
-      fill="#ffd700"
-      opacity="0.6"
-    />
-  </svg>
-);
 
 function calculateWinner(board: Player[]): Player {
   const lines = [
@@ -154,6 +135,7 @@ export default function TicTacToePage() {
           justifyContent: 'center',
           padding: '20px',
           background: 'linear-gradient(180deg, #0d0d0d 0%, #1a0a0a 100%)',
+          backgroundImage: 'radial-gradient(circle at 20% 50%, rgba(230, 48, 48, 0.1) 0%, transparent 50%)',
         }}
       >
         <div style={{ textAlign: 'center', maxWidth: '400px' }}>
@@ -357,12 +339,14 @@ export default function TicTacToePage() {
           style={{
             display: 'grid',
             gridTemplateColumns: 'repeat(3, 1fr)',
-            gap: '8px',
+            gap: '0px',
             marginBottom: '24px',
-            background: '#1a1a1a',
-            padding: '12px',
-            borderRadius: '12px',
-            border: '2px solid #2a2a2a',
+            background: 'linear-gradient(135deg, #0d0d0d 0%, #1a1a1a 100%)',
+            padding: '0px',
+            borderRadius: '0px',
+            border: '4px solid #e63030',
+            boxShadow: '0 8px 24px rgba(230, 48, 48, 0.3), inset 0 1px 3px rgba(255,255,255,0.05)',
+            position: 'relative',
           }}
         >
           {board.map((cell, index) => (
@@ -371,28 +355,52 @@ export default function TicTacToePage() {
               onClick={() => handleCellClick(index)}
               style={{
                 aspectRatio: '1 / 1',
-                background: cell ? 'rgba(255,255,255,0.05)' : 'rgba(255,255,255,0.02)',
-                border: '2px solid #2a2a2a',
-                borderRadius: '8px',
+                background: 'rgba(255,255,255,0.02)',
+                border: '3px solid #e63030',
+                borderRadius: '0px',
                 cursor: cell || gameOver || (gameMode === 'pva' && !isXNext) ? 'default' : 'pointer',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
                 transition: 'all 0.2s',
-                fontSize: '40px',
+                position: 'relative',
+                overflow: 'hidden',
               }}
               onMouseEnter={(e) => {
                 if (!cell && !gameOver && !(gameMode === 'pva' && !isXNext)) {
-                  e.currentTarget.style.background = 'rgba(255,255,255,0.08)';
-                  e.currentTarget.style.borderColor = '#ff6b1a';
+                  e.currentTarget.style.background = 'rgba(255, 107, 26, 0.1)';
+                  e.currentTarget.style.boxShadow = 'inset 0 0 10px rgba(255, 107, 26, 0.3)';
                 }
               }}
               onMouseLeave={(e) => {
-                e.currentTarget.style.background = cell ? 'rgba(255,255,255,0.05)' : 'rgba(255,255,255,0.02)';
-                e.currentTarget.style.borderColor = '#2a2a2a';
+                e.currentTarget.style.background = 'rgba(255,255,255,0.02)';
+                e.currentTarget.style.boxShadow = 'none';
               }}
             >
-              {cell === 'X' ? BOWTIE_SVG : cell === 'O' ? TORTELLINI_SVG : ''}
+              {cell === 'X' && (
+                <img
+                  src="/images/game-assets/bowtie-tic-tac-toe-pop-art.png"
+                  alt="Bowtie"
+                  style={{
+                    width: '85%',
+                    height: '85%',
+                    objectFit: 'contain',
+                    filter: 'drop-shadow(0 2px 4px rgba(0,0,0,0.3))',
+                  }}
+                />
+              )}
+              {cell === 'O' && (
+                <img
+                  src="/images/game-assets/raviolli-tic-tac-toe-pop-art.png"
+                  alt="Ravioli"
+                  style={{
+                    width: '85%',
+                    height: '85%',
+                    objectFit: 'contain',
+                    filter: 'drop-shadow(0 2px 4px rgba(0,0,0,0.3))',
+                  }}
+                />
+              )}
             </button>
           ))}
         </div>
