@@ -20,6 +20,7 @@ export const metadata: Metadata = {
     "A full Pasta-verse with music, art, merch & more.",
   icons: {
     icon: "/favicon.png",
+    apple: "/apple-touch-icon.png",
   },
   openGraph: {
     title: "Pasta Life Experience",
@@ -44,6 +45,7 @@ export const metadata: Metadata = {
     index: true,
     follow: true,
   },
+  manifest: "/manifest.json",
 };
 
 export default function RootLayout({
