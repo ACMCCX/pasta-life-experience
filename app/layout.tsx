@@ -18,6 +18,9 @@ export const metadata: Metadata = {
   title: "Pasta Life Experience | Graffiti Pasta",
   description:
     "A full Pasta-verse with music, art, merch & more.",
+  icons: {
+    icon: "/favicon.png",
+  },
   openGraph: {
     title: "Pasta Life Experience",
     description: "Music. Art. Merch. Rewards. Games. All things Graffiti Pasta.",
