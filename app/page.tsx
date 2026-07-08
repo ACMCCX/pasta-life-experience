@@ -16,12 +16,12 @@ export default function Home() {
       <main>
         <Hero />
         <MusicHub />
-        <VideoHub />
+        <GamesSection />
         <MerchSection />
         <ArtGallery />
         <ComicsSection />
+        <VideoHub />
         <RewardsSection />
-        <GamesSection />
       </main>
       <Footer />
     </>
