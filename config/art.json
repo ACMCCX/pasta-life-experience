@@ -52,6 +52,16 @@
           "image": "/images/atd/gp-skateboard-sign.jpg",
           "available": true,
           "storeLink": "https://artisttilldeath.com"
+        },
+        {
+          "id": "atd-masked-snarl",
+          "title": "Masked Snarl",
+          "price": 500,
+          "medium": "Acrylic on Canvas",
+          "description": "Masked Snarl is an original 1/1 art piece hand painted by Jeff Thornton with ATD.",
+          "image": "/images/atd/masked-snarl.jpg",
+          "available": true,
+          "stripeProductId": "prod_UrCXcbpmu67CsH"
         }
       ]
     },
