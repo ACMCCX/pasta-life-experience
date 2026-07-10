@@ -58,7 +58,8 @@
           "title": "Masked Snarl",
           "price": 500,
           "medium": "Acrylic on Canvas",
-          "description": "Masked Snarl is an original 1/1 art piece hand painted by Jeff Thornton with ATD.",
+          "dimensions": "16\" x 40\"",
+          "description": "Masked Snarl is an original 1/1 art piece hand painted by Jeff Thornton with ATD. Acrylic on canvas.",
           "image": "/images/atd/masked-snarl.jpg",
           "available": true,
           "stripeProductId": "prod_UrCXcbpmu67CsH"
